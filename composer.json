@@ -1,20 +1,20 @@
 {
-    "name": "cedriclombardot/admingenerator-generator-bundle",
+    "name": "skrobek/admingenerator-generator-bundle",
     "minimum-stability": "dev",
-    "version": "1.0.0-BETA",
-    "description": "Admingenerator for Symfony2 based on YAML configuration and Twig templating",
+    "version": "dev-feat-twitter-theme",
+    "description": "Forked From http://symfony2admingenerator.org/",
     "keywords": ["admin", "generator", "yaml"],
     "type": "symfony-bundle",
-    "homepage": "http://symfony2admingenerator.org/",
+    "homepage": "https://github.com/skrobek/AdmingeneratorGeneratorBundle",
     "license": "MIT",
     "authors": [
         {
-            "name": "Cedric LOMBARDOT",
-            "email": "cedric.lombardot@gmail.com"
+            "name": "Pawel Skroban",
+            "email": "kontakt@pawelskroban.pl"
         },
         {
             "name": "Symfony Community",
-            "homepage": "http://github.com/cedriclombardot/AdmingeneratorGeneratorBundle/contributors"
+            "homepage": "https://github.com/skrobek/AdmingeneratorGeneratorBundle"
         }
     ],
     "require": {
@@ -23,8 +23,7 @@
         "knplabs/knp-menu-bundle": "dev-master",
         "white-october/pagerfanta-bundle": "dev-master",
         "twig/twig": ">= 1.9.0",
-        "twig/extensions": "dev-master",
-        "cedriclombardot/admingenerator-oldtheme-bundle": "dev-master"
+        "twig/extensions": "dev-master"
     },
     "require-dev": {
         "doctrine/common": "2.3.*",
