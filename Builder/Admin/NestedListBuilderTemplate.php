@@ -10,6 +10,6 @@ class NestedListBuilderTemplate extends NestedListBuilder
 {
     public function getOutputName()
     {
-        return 'Resources/views/'.$this->getBaseGeneratorName().'List/index.html.twig';
+        return 'Resources/views/'.$this->getBaseGeneratorName().'/list.html.twig';
     }
 }
