@@ -68,35 +68,37 @@
       </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container">
       <div class="row-fluid">
-        {% block body %}
-          <form class="form-horizontal">
-            <legend>Login form</legend>
-            
-            <div class="control-group">
-              <label class="control-label" for="username">Username</label>
-              <div class="controls">
-                <input type="text" id="username" placeholder="Username">
+        <span class="span5 offset3">
+          {% block body %}
+            <form class="form-horizontal">
+              <legend>Login form</legend>
+              
+              <div class="control-group">
+                <label class="control-label" for="username">Username</label>
+                <div class="controls">
+                  <input type="text" id="username" placeholder="Username">
+                </div>
               </div>
-            </div>
-            
-            <div class="control-group">
-              <label class="control-label" for="password">Password</label>
-              <div class="controls">
-                <input type="password" id="password" placeholder="Password">
+              
+              <div class="control-group">
+                <label class="control-label" for="password">Password</label>
+                <div class="controls">
+                  <input type="password" id="password" placeholder="Password">
+                </div>
               </div>
-            </div>
-            
-            <div class="form-actions">
-              <label class="control-label"><input type="checkbox"> Remember me</label>
-              <div class="controls">
-                <button type="submit" class="btn btn-primary">Sign in</button>
+              
+              <div class="form-actions">
+                <label class="control-label"><input type="checkbox"> Remember me</label>
+                <div class="controls">
+                  <button type="submit" class="btn btn-primary">Sign in</button>
+                </div>
               </div>
-            </div>
-          </form>
-        {% endblock %}
-      </div><!--/row-->
+            </form>
+          {% endblock %}
+        </div><!--/row-->          
+        </span>
       
       <hr>
 
