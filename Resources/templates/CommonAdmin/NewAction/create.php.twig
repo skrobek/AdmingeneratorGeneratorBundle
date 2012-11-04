@@ -35,7 +35,7 @@
             $this->get('session')->setFlash('error', $this->get('translator')->trans("{{ messages.error is defined ? messages.error : "object.edit.error" }}", array(), 'Admingenerator') );
         }
 
-        return $this->render('{{ namespace_prefix }}{{ bundle_name }}:{{ builder.BaseGeneratorName }}New:index.html.twig', array(
+        return $this->render('{{ namespace_prefix }}{{ bundle_name }}:{{ builder.BaseGeneratorName }}:new.html.twig', array(
             "{{ builder.ModelClass }}" => ${{ builder.ModelClass }},
             "form" => $form->createView(),
         ));
