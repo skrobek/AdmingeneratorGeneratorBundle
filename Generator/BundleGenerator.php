@@ -63,7 +63,7 @@ class BundleGenerator extends BaseBundleGenerator
             $this->renderFile($this->skeletonDir, 'DefaultController.php', $dir.'/Controller/'.($this->prefix ? ucfirst($this->prefix).'/' : '').$action.'Controller.php', $parameters);
 
             if ('Delete' !== $action) {
-                $this->renderFile($this->skeletonDir, 'index.html.twig', $dir.'/Resources/views/'.ucfirst($this->prefix).'/'.strtolower($action).'html.twig', $parameters);
+                $this->renderFile($this->skeletonDir, 'index.html.twig', $dir.'/Resources/views/'.ucfirst($this->prefix).'/'.strtolower($action).'.html.twig', $parameters);
             }
         }
 
