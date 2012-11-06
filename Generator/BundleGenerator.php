@@ -63,7 +63,7 @@ class BundleGenerator extends BaseBundleGenerator
             $this->renderFile($this->skeletonDir, 'DefaultController.php', $dir.'/Controller/'.($this->prefix ? ucfirst($this->prefix).'/' : '').$action.'Controller.php', $parameters);
 
             if ('Delete' !== $action) {
-                $this->renderFile($this->skeletonDir, 'index.html.twig', $dir.'/Resources/views/'.ucfirst($this->prefix).'/'.strtolower($action).'.html.twig', $parameters);
+                $this->renderFile($this->skeletonDir, strtolower($action).'.html.twig', $dir.'/Resources/views/'.ucfirst($this->prefix).'/'.strtolower($action).'.html.twig', $parameters);
             }
         }
 
@@ -72,6 +72,6 @@ class BundleGenerator extends BaseBundleGenerator
             $this->renderFile($this->skeletonDir, 'DefaultType.php', $dir.'/Form/Type/'.($this->prefix ? ucfirst($this->prefix).'/' : '').$form.'Type.php', $parameters);
         }
 
-        $this->renderFile($this->skeletonDir, 'generator.yml', $dir.'/Resources/config/'.($this->prefix ? ucfirst($this->prefix).'-' : '').'generator.yml', $parameters);
+        $this->renderFile($this->skeletonDir, 'generator.yml', $dir.'/Resources/config/admin/'.($this->prefix ? ucfirst($this->prefix).'-' : '').'generator.yml', $parameters);
     }
 }
