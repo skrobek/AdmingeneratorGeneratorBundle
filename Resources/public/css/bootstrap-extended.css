@@ -149,6 +149,14 @@ fieldset.collection-item {
   vertical-align: top
 }
 
+fieldset.collection-item > legend > label {
+  display: inline;
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
 fieldset.collection-item > .delete {
   position: absolute;
   top: 5px;
@@ -171,6 +179,11 @@ fieldset.collection-item > .btn-toggle {
 
 fieldset.collection-item > .btn-toggle > input[type="checkbox"] {
   opacity: 0.65;
+}
+
+/* Form error styles */
+ul.form-errors {
+  margin-left: 15px;
 }
 
 /* Remove firefox grey dotted focus outline */
@@ -212,6 +225,22 @@ button::-moz-focus-inner, select::-moz-focus-inner {
     transform: translate(-300px, 0px) scale(4);
     height: 30px;
     line-height: 30px;
+}
+
+/* Upload presentation table styles */
+tbody.files > tr > td {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+tbody.files > tr > td.delete {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+tbody.files > tr > td > span {
+  line-height: 20px;
+  padding: 4px 0px; 
 }
 
 /* Additional text styles */
