@@ -66,6 +66,9 @@
     {% set full_name = full_name ~ '[uploads][]' %}
     
     <div id="{{ id ~ '_widget_container' }}">
+        {% include "AdmingeneratorGeneratorBundle:Form/Upload:presentation_table.html.twig" %}    
+        {% include "AdmingeneratorGeneratorBundle:Form/Upload:template_download.html.twig" %}
+        {% include "AdmingeneratorGeneratorBundle:Form/Upload:template_upload.html.twig" %}    
         <div class="btn-toolbar form-actions form-actions-condensed fileupload-buttonbar">
             <span class="btn btn-success fileinput">
                 <i class="icon-plus icon-white"></i>
@@ -84,9 +87,6 @@
                 <input type="checkbox" class="toggle">
             </label>
         </div>
-        {% include "AdmingeneratorGeneratorBundle:Form/Upload:presentation_table.html.twig" %}    
-        {% include "AdmingeneratorGeneratorBundle:Form/Upload:template_download.html.twig" %}
-        {% include "AdmingeneratorGeneratorBundle:Form/Upload:template_upload.html.twig" %}    
         {% include "AdmingeneratorGeneratorBundle:Form/Upload:javascript.html.twig" %}
     </div>
 {% endspaceless %}

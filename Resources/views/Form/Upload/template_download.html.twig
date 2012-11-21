@@ -36,13 +36,7 @@
                 {% raw %}
                 {% } %}
                 {% endraw %}
-            </td>
-            <td class="name">
-                {% raw %}
-                <a href="{%=file.url%}" title="{%=file.name%}">{%=file.name%}</a>
-                {% endraw %}
-            </td>
-            <td class="size"><span>{% raw %}{%=o.formatFileSize(file.size)%}{% endraw %}</span></td>
+            </td>            
             <td colspan="2">
                 {{ form_widget(prototype['name'],{'value': '{%=file.name%}'})|replace({'__name__': '{%=file.count%}'})|raw }}
             </td>
