@@ -1,4 +1,8 @@
-# Symfony2 Admin Generator: The Real Missing Admin Generator for Symfony2! ![project status](http://stillmaintained.com/cedriclombardot/AdmingeneratorGeneratorBundle.png)# ![build status](https://secure.travis-ci.org/symfony2admingenerator/AdmingeneratorGeneratorBundle.png)#
+<a href="http://knpbundles.com/symfony2admingenerator/AdmingeneratorGeneratorBundle"><img src="http://knpbundles.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/badge"></a>
+
+# Symfony2 Admin Generator: The Real Missing Admin Generator for Symfony2! 
+
+![project status](http://stillmaintained.com/cedriclombardot/AdmingeneratorGeneratorBundle.png) ![build status](https://secure.travis-ci.org/symfony2admingenerator/AdmingeneratorGeneratorBundle.png)
 
 **:warning: This branch work only with the symfony 2.1 for 2.0 use the 2.0 branch :warning:**
 
@@ -20,16 +24,12 @@ With almost the same features:
 * Configure more that one field per line
 * Change the database column you want to sortOn or filterOn for a field in list
 * A complete admin design
-* Translated into EN, FR, RU, PT, ES, SL, DE , PL, UA, IT (you can easily contribute to add your own)
+* Translated into EN, FR, RU, PT, ES, SL, DE , PL, UA, IT, JA (you can easily contribute to add your own)
 * Filters by form & by scopes combinable
 * Credentials for actions, columns, and form fields
 * ...
+## This bundle in pictures
 
-## Want to run a test?
+![Preview of list](https://github.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/raw/master/Resources/doc/doc_list.png)
 
-The fastest way to try it is to setup the AdmingeneratorIpsum project: https://github.com/symfony2admingenerator/AdmingeneratorIpsum.
-This is a complete Symfony2 application with this bundle well configured.
-
-## Installation
-
-### Install this bundle
+![Preview of edit](https://github.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/raw/master/Resources/doc/doc_edit.png)
