@@ -1,5 +1,4 @@
 {% import "AdmingeneratorGeneratorBundle:Form/EntityPicker:macros.html.twig" as macros %}
-
 {%- for choice in choices -%}
     {%- if loop.first %}{{ '[' }}{% endif -%}
         {{ macros.datasource(choice.data, builder) }}
