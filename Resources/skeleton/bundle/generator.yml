@@ -1,6 +1,7 @@
 generator: {{ generator }}
 params:
-  model: {{ namespace }}\Entity\{{ prefix }}
+  #model: {{ namespace }}\Entity\{{ prefix }}
+  model: {{ namespace }}\{{ model_folder }}\{{ model_name }}
   namespace_prefix: {{ namespace_prefix }}
   bundle_name: {{ bundle_name }}
   fields: ~
@@ -30,4 +31,11 @@ builders:
       display: ~
       actions:
         list: ~
+  show:
+    params:
+      title: "You're viewing the object \"%object%\"|{ %object%: YourModel.title }|
+      display: ~
+      actions:
+        list: ~
+        new: ~
   delete: ~

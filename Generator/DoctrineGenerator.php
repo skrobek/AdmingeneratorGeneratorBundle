@@ -6,6 +6,8 @@ use Admingenerator\GeneratorBundle\Builder\Generator as AdminGenerator;
 
 use Admingenerator\GeneratorBundle\Builder\Doctrine\ListBuilderAction;
 use Admingenerator\GeneratorBundle\Builder\Doctrine\ListBuilderTemplate;
+use Admingenerator\GeneratorBundle\Builder\Doctrine\NestedListBuilderAction;
+use Admingenerator\GeneratorBundle\Builder\Doctrine\NestedListBuilderTemplate;
 use Admingenerator\GeneratorBundle\Builder\Doctrine\FiltersBuilderType;
 
 use Admingenerator\GeneratorBundle\Builder\Doctrine\DeleteBuilderAction;
@@ -17,6 +19,9 @@ use Admingenerator\GeneratorBundle\Builder\Doctrine\EditBuilderType;
 use Admingenerator\GeneratorBundle\Builder\Doctrine\NewBuilderAction;
 use Admingenerator\GeneratorBundle\Builder\Doctrine\NewBuilderTemplate;
 use Admingenerator\GeneratorBundle\Builder\Doctrine\NewBuilderType;
+
+use Admingenerator\GeneratorBundle\Builder\Doctrine\ShowBuilderAction;
+use Admingenerator\GeneratorBundle\Builder\Doctrine\ShowBuilderTemplate;
 
 class DoctrineGenerator extends Generator
 {
@@ -35,7 +40,7 @@ class DoctrineGenerator extends Generator
         
         $generator = new AdminGenerator($this->cache_dir, $this->getGeneratorYml());
         $generator->setContainer($this->container);
-        $generator->setBaseAdminTemplate($this->container->getParameter('admingenerator.base_admin_template'));
+        $generator->setBaseAdminTemplate($generator->getFromYaml('base_admin_template', $this->container->getParameter('admingenerator.base_admin_template')));
         $generator->setFieldGuesser($this->getFieldGuesser());
         $generator->setMustOverwriteIfExists($this->needToOverwrite($generator));
         $generator->setTemplateDirs(array_merge(
@@ -50,6 +55,12 @@ class DoctrineGenerator extends Generator
         if (array_key_exists('list',$builders)) {
             $generator->addBuilder(new ListBuilderAction());
             $generator->addBuilder(new ListBuilderTemplate());
+            $generator->addBuilder(new FiltersBuilderType());
+        }
+
+        if (array_key_exists('nested_list',$builders)) {
+            $generator->addBuilder(new NestedListBuilderAction());
+            $generator->addBuilder(new NestedListBuilderTemplate());
             $generator->addBuilder(new FiltersBuilderType());
         }
 
