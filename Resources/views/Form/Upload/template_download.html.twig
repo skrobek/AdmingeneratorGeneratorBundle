@@ -23,11 +23,11 @@
                 {% endraw %}
                 {% if thumbnailFilter %}
                     {% raw %}
-                    <a href="{%=file.url%}" title="{%=file.name%}"><img src="{%=file.thumbnail_url%}" /></a>
+                    <a href="{%=file.url%}"><img src="{%=file.thumbnail_url%}" /></a>
                     {% endraw %}
                 {% else %}
                     {% raw %}
-                    <a href="{%=file.url%}" title="{%=file.name%}">
+                    <a href="{%=file.url%}">
                     {% endraw %}
                         <img src="{% raw %}{%=file.thumbnail_url%}{% endraw %}" 
                              width="{{ previewMaxWidth }}" height="{{ previewMaxHeight }}" />
@@ -36,21 +36,25 @@
                 {% raw %}
                 {% } %}
                 {% endraw %}
-            </td>            
-            <td class="name">
-                {% raw %}
-                <a href="{%=file.url%}" title="{%=file.name%}">{%=file.name%}</a>
-                {% endraw %}
+            </td>
+            <td class="form">
+                {% if editable %}
+                    {% for field in editable %}                                            
+                        {{ form_row(prototype[field],{'value': '{%=file.'~field~'%}'})|replace({'__name__': '{%=file.count%}'})|raw }}   
+                    {% endfor %}
+                {% endif %}
             </td>
             <td class="size"><span>{% raw %}{%=o.formatFileSize(file.size)%}{% endraw %}</span></td>
-            <td colspan="2">
-                {{ form_widget(prototype['name'],{'value': '{%=file.name%}'})|replace({'__name__': '{%=file.count%}'})|raw }}
-            </td>
+            <td colspan="2"></td>
         {% raw %}
         {% } %}
         {% endraw %}
         <td class="delete">
             <div class="btn-toolbar">
+                <a class="btn btn-info" target="_blank" {% raw %}href="{%=file.url%}"{% endraw %}>
+                    <i class="icon-download icon-white"></i> 
+                    <span> {{ 'upload.download'|trans({}, 'Admingenerator') }}</span>
+                </a>
                 <button class="btn btn-danger">
                     <i class="icon-trash icon-white"></i> 
                     <span> {{ 'upload.delete'|trans({}, 'Admingenerator') }}</span>

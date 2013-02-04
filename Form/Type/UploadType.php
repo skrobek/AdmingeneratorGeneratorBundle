@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
 use Symfony\Component\Form\Extension\Core\EventListener\ResizeFormListener;
 use Admingenerator\GeneratorBundle\Form\EventListener\CaptureUploadListener;
@@ -21,27 +22,29 @@ class UploadType extends CollectionType
     {
         $this->container = $container;       
     }
+    
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $prototype = $builder->create(
-                $options['prototype_name'], 
-                new \Admingenerator\GeneratorBundle\Form\Type\UploadedFileType(), 
-                $options['options']
+            $options['prototype_name'], 
+            $options['type'],
+            $options['options']
         );
         $builder->setAttribute('prototype', $prototype->getForm());
         
         $captureListener = new CaptureUploadListener(
             $builder->getName(),
-            $options['options']['data_class']
+            $options['options']['data_class'],
+            $options['nameable']
         );
         $builder->getParent()->addEventSubscriber($captureListener);
         
         $resizeListener = new ResizeFormListener(
             $builder->getFormFactory(),
-            new \Admingenerator\GeneratorBundle\Form\Type\UploadedFileType(),
+            $options['type'],
             $options['options'],
             $options['allow_add'],
             $options['allow_delete']
@@ -58,6 +61,8 @@ class UploadType extends CollectionType
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['multipart']                =   true;
+        $view->vars['sortable']                 =   $options['sortable'];
+        $view->vars['editable']                 =   $options['editable'];
         $view->vars['maxNumberOfFiles']         =   $options['maxNumberOfFiles'];
         $view->vars['maxFileSize']              =   $options['maxFileSize'];
         $view->vars['minFileSize']              =   $options['minFileSize'];
@@ -80,6 +85,9 @@ class UploadType extends CollectionType
         parent::setDefaultOptions($resolver);
         
         $resolver->setDefaults(array(
+            'nameable'                  =>  null,
+            'sortable'                  =>  null,
+            'editable'                  =>  null,
             'maxNumberOfFiles'          =>  null,
             'maxFileSize'               =>  null,
             'minFileSize'               =>  null,
@@ -94,6 +102,9 @@ class UploadType extends CollectionType
         ));
         
         $resolver->setAllowedTypes(array(
+            'nameable'                  =>  array('string', 'null'),
+            'sortable'                  =>  array('string', 'null'),
+            'editable'                  =>  array('array', 'null'),
             'maxNumberOfFiles'          =>  array('integer', 'null'),
             'maxFileSize'               =>  array('integer', 'null'),
             'minFileSize'               =>  array('integer', 'null'),
