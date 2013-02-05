@@ -39,8 +39,8 @@
             </td>
             <td class="form">
                 {% if editable %}
-                    {% for field in editable %}                                            
-                        {{ form_row(prototype[field],{'value': '{%=file.'~field~'%}'})|replace({'__name__': '{%=file.count%}'})|raw }}   
+                    {% for field in editable %}
+                        {{ form_row(prototype[field],{'value': '{%=file.'~field~'%}'})|replace({'__name__': '{%=file.count%}'})|raw }}
                     {% endfor %}
                 {% endif %}
             </td>
