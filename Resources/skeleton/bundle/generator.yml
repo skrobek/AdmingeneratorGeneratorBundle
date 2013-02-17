@@ -27,13 +27,13 @@ builders:
         list: ~
   edit:
     params:
-      title: Edycja obiektu "%object%"|{ %object%: {{ prefix }}.name }|
+      title: "Edycja obiektu \"%object%\"|{ %object%: {{ prefix }}.name }|"
       display: ~
       actions:
         list: ~
   show:
     params:
-      title: Podgląd obiektu "%object%"|{ %object%: {{ prefix }}.name }|
+      title: "Podgląd obiektu \"%object%\"|{ %object%: {{ prefix }}.name }|"
       display: ~
       actions:
         list: ~
