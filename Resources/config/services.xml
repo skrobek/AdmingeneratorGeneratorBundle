@@ -74,6 +74,14 @@
             <tag name="form.type" alias="datepicker" />
         </service>
 
+        <service id="form.type.timepicker" class="Admingenerator\GeneratorBundle\Form\Type\TimepickerType">
+            <tag name="form.type" alias="timepicker" />
+        </service>
+
+        <service id="form.type.editor" class="Admingenerator\GeneratorBundle\Form\Type\EditorType">
+            <tag name="form.type" alias="editor" />
+        </service>
+
         <service id="form.type.datepicker_range" class="Admingenerator\GeneratorBundle\Form\Type\DatepickerRangeType">
             <tag name="form.type" alias="datepicker_range" />
         </service>
