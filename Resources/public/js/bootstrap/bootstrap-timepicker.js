@@ -42,7 +42,7 @@
         this.$element.parent('.input-append, .input-prepend').find('.add-on').on({
           'click.timepicker': $.proxy(this.showWidget, this)
         });
-        this.$element.parent('.input-append, .input-prepend').find('input').on({
+        this.$element.parent('.input-append, .input-prepend').find('.bootstrap-timepicker-input').on({
           'click.timepicker': $.proxy(this.showWidget, this)
         });
         this.$element.on({

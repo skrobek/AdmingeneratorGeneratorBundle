@@ -78,6 +78,10 @@
             <tag name="form.type" alias="timepicker" />
         </service>
 
+        <service id="form.type.datetimepicker" class="Admingenerator\GeneratorBundle\Form\Type\DateTimepickerType">
+            <tag name="form.type" alias="datetimepicker" />
+        </service>
+
         <service id="form.type.editor" class="Admingenerator\GeneratorBundle\Form\Type\EditorType">
             <tag name="form.type" alias="editor" />
         </service>
