@@ -1,14 +1,14 @@
 <?php
 
-namespace Admingenerator\GeneratorBundle\Form\Type;
+namespace Admingenerator\GeneratorBundle\Form\Type\DoctrineORM;
 
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use Symfony\Bridge\Propel1\Form\Type\ModelType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class PropelEntityPickerType extends ModelType
+class EntityPickerType extends EntityType
 {
     /**
      * {@inheritdoc}

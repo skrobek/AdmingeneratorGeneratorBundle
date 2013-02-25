@@ -1,11 +1,11 @@
 <?php
 
-namespace Admingenerator\GeneratorBundle\Form\Type;
+namespace Admingenerator\GeneratorBundle\Form\Type\DoctrineORM;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DoctrineDoubleListType extends EntityType
+class DoubleListType extends EntityType
 {
     /**
      * {@inheritdoc}
@@ -22,6 +22,6 @@ class DoctrineDoubleListType extends EntityType
      */
     public function getName()
     {
-        return 'doctrine_double_list';
+        return 'double_list';
     }
 }

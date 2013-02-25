@@ -24,12 +24,14 @@ builders:
       title: Nowy Obiekt
       display: ~
       actions:
+        save: ~
         list: ~
   edit:
     params:
       title: Edycja obiektu "%object%"|{ %object%: {{ prefix }}.name }|
       display: ~
       actions:
+        save: ~
         list: ~
   show:
     params:
