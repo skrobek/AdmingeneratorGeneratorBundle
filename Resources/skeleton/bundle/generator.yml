@@ -23,16 +23,20 @@ builders:
     params:
       title: Nowy Obiekt
       display: ~
-      actions:
-        save: ~
-        list: ~
+        actions:
+          save: ~
+          save-and-add: ~
+          save-and-list: ~
+          list: ~
   edit:
     params:
       title: Edycja obiektu "%object%"|{ %object%: {{ prefix }}.name }|
       display: ~
-      actions:
-        save: ~
-        list: ~
+        actions:
+          save: ~
+          save-and-add: ~
+          save-and-list: ~
+          list: ~
   show:
     params:
       title: Podgląd obiektu "%object%"|{ %object%: {{ prefix }}.name }|
