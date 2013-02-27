@@ -1,5 +1,6 @@
 generator: {{ generator }}
 params:
+<<<<<<< HEAD
   #model: {{ namespace }}\Entity\{{ prefix }}
   model: {{ namespace }}\{{ model_folder }}\{{ model_name }}
   namespace_prefix: {{ namespace_prefix }}
