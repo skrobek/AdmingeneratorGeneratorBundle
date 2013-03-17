@@ -1,7 +1,7 @@
 {
     "name": "skrobek/admingenerator-generator-bundle",
     "minimum-stability": "dev",
-    "version": "dev-feat-twitter-theme",
+    "version": "1.0.0-BETA",
     "description": "Forked From http://symfony2admingenerator.org/",
     "keywords": ["admin", "generator", "yaml"],
     "type": "symfony-bundle",
