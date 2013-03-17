@@ -11,14 +11,17 @@ use Knp\Menu\ItemInterface;
 class AdmingeneratorMenuBuilder extends ContainerAware
 {
     protected $factory;
+    
+    /* used to store existing divider names */
+    protected $dividers;
 
     /**
      * @param \Knp\Menu\FactoryInterface $factory
-     * 
      */
     public function __construct(FactoryInterface $factory)
     {
         $this->factory = $factory;
+        $this->dividers = array();
     }
 
     /**
@@ -34,6 +37,8 @@ class AdmingeneratorMenuBuilder extends ContainerAware
     }
 
     /**
+     * Example dashboard menu
+     * 
      * @param Request $request
      * @param Router $router
      */
@@ -103,6 +108,22 @@ class AdmingeneratorMenuBuilder extends ContainerAware
         $item->setExtra('translation_domain', $menu->getExtra('translation_domain'));        
         $item->setExtra('caret', $caret);
         $menu->setExtra('request_uri', $menu->getExtra('request_uri'));
+        
+        return $item;
+    }
+    
+    protected function addDivider(ItemInterface $menu)
+    {
+        // generate unique divider name
+        do {
+            $name = 'divider'.mt_rand();
+        } while (in_array($name, $this->dividers));
+        
+        $this->dividers[] = $name;
+        
+        $item = $menu->addChild($name, array());
+        $item->setLabel('');
+        $item->setAttribute('class', 'divider');
         
         return $item;
     }

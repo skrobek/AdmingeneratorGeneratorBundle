@@ -24,7 +24,6 @@ class AdmingeneratorGeneratorExtension extends Extension
 
         // Fix template_dirs
         $doctrine_template_dirs = $doctrineodm_template_dirs = $propel_template_dirs = array();
-        $config['templates_dirs'] = isset($config['templates_dirs'])  ? $config['templates_dirs'] : array();
         foreach ($config['templates_dirs'] as $dir) {
             $doctrine_template_dirs[]    = $dir.'/Doctrine';
             $doctrineodm_template_dirs[] = $dir.'/DoctrineODM';
@@ -47,31 +46,16 @@ class AdmingeneratorGeneratorExtension extends Extension
         $container->setParameter('admingenerator.thumbnail_generator', $config['thumbnail_generator']);
         $container->setParameter('admingenerator.overwrite_if_exists', $config['overwrite_if_exists']);
         $container->setParameter('admingenerator.base_admin_template', $config['base_admin_template']);
+        $container->setParameter('admingenerator.dashboard_welcome_path', $config['dashboard_welcome_path']);
         $container->setParameter('admingenerator.menu_builder.class', $config['knp_menu_class']);
         $container->setParameter('admingenerator.stylesheets', $config['stylesheets']);
         $container->setParameter('admingenerator.javascripts', $config['javascripts']);
-
-        $container->setParameter('session.flashbag.class', 'Symfony\Component\HttpFoundation\Session\Flash\FlashBag');
 
         $date_type = array(
                 'class' => 'Admingenerator\GeneratorBundle\Form\Type\DateType',
                 'tags' => array('name' => 'form.type', 'alias' => 'date'),
             );
         $container->setParameter('services.form.type.date', $date_type);
-
-        if (!isset($config['twig'])) {
-            $config['twig'] = array(
-                'use_form_resources' => true,
-                'use_localized_date' => false,
-                'date_format'        => 'Y-m-d',
-                'datetime_format'    => 'Y-m-d H:i:s',
-                'number_format'      => array(
-                    'decimal'            => 0,
-                    'decimal_point'      => '.',
-                    'thousand_separator' => ',',
-                )
-             );
-        }
 
         $container->setParameter('admingenerator.twig', $config['twig']);
 

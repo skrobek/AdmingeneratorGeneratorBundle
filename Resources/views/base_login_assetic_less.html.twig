@@ -51,7 +51,8 @@
             <span class="icon-bar"></span>
           </a>
           {% block logo %}
-            <a class="brand" href="#">Admin</a>
+              {% set brand_path = (admingenerator_config('dashboard_welcome_path') is not null) ? path(admingenerator_config('dashboard_welcome_path')) : '#' %}
+              <a class="brand" href="{{ brand_path }}">{% block brand_text %}{{ 'dashboard.brand'|trans({}, 'Admingenerator') }}{% endblock %}</a>
           {% endblock %}
           <div class="nav-collapse collapse">
             {% block profile %}
@@ -72,6 +73,7 @@
       </div>
     </div>
 
+<<<<<<< HEAD
     <div class="container">
       <div class="row-fluid">
         <span class="span5 offset3">
@@ -84,6 +86,18 @@
                 <div class="controls">
                   <input type="text" id="username" placeholder="Username">
                 </div>
+=======
+    <div class="container-fluid">
+      {% block body %}
+        <div class="row-fluid">
+          <form class="form-horizontal">
+            <legend>Login form</legend>
+            
+            <div class="control-group">
+              <label class="control-label" for="username">Username</label>
+              <div class="controls">
+                <input type="text" id="username" placeholder="Username">
+>>>>>>> 14fb6959ba94712bec29d8a177a8ad9baed24718
               </div>
               
               <div class="control-group">
@@ -99,6 +113,7 @@
                   <button type="submit" class="btn btn-primary">Sign in</button>
                 </div>
               </div>
+<<<<<<< HEAD
             </form>
           {% endblock %}
         </div><!--/row-->          
@@ -106,15 +121,20 @@
       
       <hr>
 
+=======
+            </div>
+          </form>
+        </div><!--/.row-fluid -->
+      {% endblock %}
+        
+      {% block footer %}
+>>>>>>> 14fb6959ba94712bec29d8a177a8ad9baed24718
       <footer>
-        <p>
-          {% block footer %}
-              &copy; Symfony2Admingenerator {{ ("now"|date('Y') > 2012) ? '2012 - ' ~ "now"|date('Y') : '2012' }}
-          {% endblock %}
-        </p>
+        <hr>
+        <p>{% block footer_text %}&copy; Symfony2Admingenerator {{ ("now"|date('Y') > 2012) ? '2012 - ' ~ "now"|date('Y') : '2012' }}{% endblock %}</p>
       </footer>
-
-    </div> <!-- /container -->
+      {% endblock %}
+    </div> <!--/.container-fluid -->
     
     {% block javascripts %}
         <!-- bootstrap.min.js -->

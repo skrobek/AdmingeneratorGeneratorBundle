@@ -10,12 +10,12 @@
         {{ block('security_action_with_object') }}
 
         if (!${{ builder.ModelClass }}) {
-            throw new NotFoundHttpException("The {{ model }} with {{ builder.ModelPrimaryKeyName }} $pk can't be found");
+            throw new NotFoundHttpException("The {{ model }} with {{ builder.getFieldGuesser().getModelPrimaryKeyName(model) }} $pk can't be found");
         }
 
         $this->preBindRequest(${{ builder.ModelClass }});
         $form = $this->createForm($this->getEditType(), ${{ builder.ModelClass }});
-        $form->bindRequest($this->get('request'));
+        $form->bind($this->get('request'));
 
         if ($form->isValid()) {
             try {
@@ -23,8 +23,8 @@
                 $this->saveObject(${{ builder.ModelClass }});
                 $this->postSave($form, ${{ builder.ModelClass }});
 
-                $this->get('session')->setFlash('success', $this->get('translator')->trans("{{ messages.success is defined ? messages.success : "action.object.edit.success" }}", array(), 'Admingenerator') );
-                
+                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans("{{ messages.success is defined ? messages.success : "action.object.edit.success" }}", array(), 'Admingenerator') );
+
                 if($this->get('request')->request->has('save-and-add'))
                   return new RedirectResponse($this->generateUrl("{{ builder.routePrefixWithSubfolder }}_{{ bundle_name }}{{ builder.BaseGeneratorName ? "_" ~ builder.BaseGeneratorName : "" }}_new" ));
                 if($this->get('request')->request->has('save-and-list'))
@@ -32,15 +32,15 @@
                 else
                   return new RedirectResponse($this->generateUrl("{{ builder.routePrefixWithSubfolder }}_{{ bundle_name }}{{ builder.BaseGeneratorName ? "_" ~ builder.BaseGeneratorName : "" }}_edit", array('pk' => $pk) ));
             } catch (\Exception $e) {
-                $this->get('session')->setFlash('error',  $this->get('translator')->trans("{{ messages.error is defined ? messages.error : "action.object.edit.error" }}", array(), 'Admingenerator') );
+                $this->get('session')->getFlashBag()->add('error',  $this->get('translator')->trans("{{ messages.error is defined ? messages.error : "action.object.edit.error" }}", array(), 'Admingenerator') );
                 $this->onException($e, $form, ${{ builder.ModelClass }});
             }
 
         } else {
-            $this->get('session')->setFlash('error',  $this->get('translator')->trans("{{ messages.error is defined ? messages.error : "action.object.edit.error" }}", array(), 'Admingenerator') );
+            $this->get('session')->getFlashBag()->add('error',  $this->get('translator')->trans("{{ messages.error is defined ? messages.error : "action.object.edit.error" }}", array(), 'Admingenerator') );
         }
 
-        return $this->render('{{ namespace_prefix }}{{ bundle_name }}:{{ builder.BaseGeneratorName }}:edit.html.twig', array(
+        return $this->render('{{ namespace_prefix }}{{ bundle_name }}:{{ builder.BaseGeneratorName }}:edit.html.twig', $this->getAdditionalRenderParameters(${{ builder.ModelClass }}) + array(
             "{{ builder.ModelClass }}" => ${{ builder.ModelClass }},
             "form" => $form->createView(),
         ));

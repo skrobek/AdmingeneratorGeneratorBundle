@@ -42,7 +42,7 @@ public function registerBundles()
 
 ### 3. Basic configuration
 
-Choose your model manager - add following lines to `app/config/config.yml`:
+Choose your model manager and choose basic admingenerator template - with or without assetic. -- add following lines to `app/config/config.yml`:
 
 ```yaml
 admingenerator_generator:
@@ -50,23 +50,18 @@ admingenerator_generator:
     use_propel:           false
     use_doctrine_orm:     true
     use_doctrine_odm:     false
+    
+    # choose and uncomment ONLY one
+#    base_admin_template: AdmingeneratorGeneratorBundle::base_admin.html.twig
+#    base_admin_template: AdmingeneratorGeneratorBundle::base_admin_assetic_less.html.twig
 ```
 
-Enable translation of KnpMenu - add following lines to `app/config/config.yml`:</p>
+Enable translation of KnpMenu - add following lines to `app/config/config.yml`:
 
 ```yaml
 knp_menu:
     twig:
         template: AdmingeneratorGeneratorBundle:KnpMenu:knp_menu_trans.html.twig
-```
-
-Choose basic admingenerator template - with or without assetic.
-
-```yaml
-admingenerator_generator:
-    # choose and uncomment only one
-#    base_admin_template: AdmingeneratorGeneratorBundle::base_admin.html.twig
-#    base_admin_template: AdmingeneratorGeneratorBundle::base_admin_assetic_less.html.twig
 ```
 
 ### (Optional) Configure Assetic & YUI comperssor
@@ -91,17 +86,12 @@ If you're useing assetic for asset management dump your assets by running:
 
 `php app/console assetic:dump`
 
-### 5. Import Dashboard routes
+### 5. (Optional) Specify dashboard route
 
-Default Admingenerator templates use these routes for Dashboard view:
-
-* `AdmingeneratorDashboard_welcome`
-* `AdmingeneratorDashboard_documentation`
-
-To import these routes add this to your `app/config/routing.yml`:
+By default brand text ("Dashboard") is disabled. To link it with your Dashboard 
+add `dashboard_welcome_path` under `admingenerator_generator` in your `app/config/config.yml`:
 
 ```yaml
-AdmingeneratorGeneratorBundle_Dashboard:
-    resource: "@AdmingeneratorGeneratorBundle/Resources/config/routing.yml"
-    prefix:   /
+admingenerator_generator:
+    dashboard_welcome_path:     MyDashboard_path
 ```

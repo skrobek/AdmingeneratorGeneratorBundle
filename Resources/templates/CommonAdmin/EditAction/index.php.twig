@@ -13,12 +13,11 @@ use {{ builder.namespacePrefixWithSubfolder }}\{{ bundle_name }}\Form\Type\{{ bu
         {{ block('security_action_with_object') }}
 
         if (!${{ builder.ModelClass }}) {
-            throw new NotFoundHttpException("The {{ model }} with {{ builder.ModelPrimaryKeyName }} $pk can't be found");
+            throw new NotFoundHttpException("The {{ model }} with {{ builder.getFieldGuesser().getModelPrimaryKeyName(model) }} $pk can't be found");
         }
 
         $form = $this->createForm($this->getEditType(), ${{ builder.ModelClass }});
-
-        return $this->render('{{ namespace_prefix }}{{ bundle_name }}:{{ builder.BaseGeneratorName }}:edit.html.twig', array(
+        return $this->render('{{ namespace_prefix }}{{ bundle_name }}:{{ builder.BaseGeneratorName }}:edit.html.twig', $this->getAdditionalRenderParameters(${{ builder.ModelClass }}) + array(
             "{{ builder.ModelClass }}" => ${{ builder.ModelClass }},
             "form" => $form->createView(),
         ));
