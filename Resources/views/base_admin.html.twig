@@ -62,7 +62,7 @@
 
   <body>
     {% block navbar %}
-      {{ include('AdmingeneratorGeneratorBundle::base_admin_navbar') }}
+      {{ include('AdmingeneratorGeneratorBundle::base_admin_navbar.html.twig') }}
     {% endblock navbar %}
 
     <div class="container-fluid">
@@ -134,12 +134,8 @@
             'bundles/admingeneratorgenerator/js/jquery-ui/jquery.ui.sortable.js'
             'bundles/admingeneratorgenerator/js/jquery-ui/jquery.ui.effect.js'
             'bundles/admingeneratorgenerator/js/jquery-ui/jquery.ui.effect-slide.js'
-<<<<<<< HEAD
             'bundles/admingeneratorgenerator/js/jquery-ui/jquery.ui.resizable.js'
             
-=======
-
->>>>>>> 85546b4aaf114321f4914a8351cda29e935dc825
         %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
