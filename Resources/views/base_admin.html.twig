@@ -92,34 +92,7 @@
         </div><!--/.container -->
       </div><!--/.navbar-inner -->
     </div><!--/.navbar -->
-
-<<<<<<< HEAD
     <div class="container">
-        {% block flashes %}
-            <div id="flashes" class="row-fluid">
-                {% if app.session.hasFlash('success') %}
-                  <div class="alert alert-success">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    {{ app.session.flash('success')|raw }}
-                  </div>
-                {% endif %}
-                {% if app.session.hasFlash('error') %}
-                  <div class="alert alert-error">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    {{ app.session.flash('error')|raw }}
-                  </div>
-                {% endif %}
-            </div><!--/row-->
-        {% endblock %}
-
-        {% block body %}
-            <div class="row-fluid">
-            </div><!--/row-->
-        {% endblock %}
-
-      <hr>
-=======
-    <div class="container-fluid">
       {% block flashes %}
         <div id="flashes" class="row-fluid">
           {% for type, flashMessages in app.session.flashbag.all() %}
@@ -132,7 +105,6 @@
           {% endfor %}
         </div><!--/.row-fluid -->
       {% endblock %}
->>>>>>> 14fb6959ba94712bec29d8a177a8ad9baed24718
 
       {% block body %}
         <div class="row-fluid">
@@ -145,7 +117,7 @@
         <p>{% block footer_text %}&copy; Symfony2Admingenerator {{ ("now"|date('Y') > 2012) ? '2012 - ' ~ "now"|date('Y') : '2012' }}{% endblock %}</p>
       </footer>
       {% endblock %}
-    </div> <!--/.container-fluid -->
+    </div> <!--/.container -->
 
     {% block javascripts %}
 
