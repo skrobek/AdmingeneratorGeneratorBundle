@@ -18,7 +18,7 @@
         }
     ],
     "require": {
-        "symfony/symfony": ">= 2.1.0",
+        "symfony/symfony": ">= 2.2.0",
         "cedriclombardot/twig-generator": "dev-master",
         "knplabs/knp-menu-bundle": ">1.0,<2.1",
         "white-october/pagerfanta-bundle": "dev-master",
@@ -31,7 +31,8 @@
         "doctrine/dbal": ">=2.2.3,<2.5-dev"
     },
     "suggest": {
-        "cedriclombardot/admingenerator-user-bundle": "Help you to overwrite the base layout of FOSUserBundle or others giving a parameter key of the container"
+        "cedriclombardot/admingenerator-user-bundle": "Help you to overwrite the base layout of FOSUserBundle or others giving a parameter key of the container",
+        "avalanche123/imagine-bundle": "Image manipulation using Imagine and Twig Filters"
     },
     "target-dir": "Admingenerator/GeneratorBundle",
     "autoload": {
@@ -41,7 +42,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "2.2-dev"
         }
     }
 }
