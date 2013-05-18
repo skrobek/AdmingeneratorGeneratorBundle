@@ -7,7 +7,7 @@
 
     {% block scripts_head %}
         <!-- jquery.min.js -->
-        <script type="text/javascript" src="{{ asset('bundles/admingeneratorgenerator/js/jquery-1.8.3.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/admingeneratorgenerator/js/jquery-1.9.1.min.js') }}"></script>
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
@@ -102,6 +102,10 @@
         <script type="text/javascript" src="{{ asset('bundles/admingeneratorgenerator/js/bootstrap/bootstrap-wysihtml5.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/admingeneratorgenerator/js/bootstrap/locales/bootstrap-datepicker.' ~ app.request.locale ~ '.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/admingeneratorgenerator/js/bootstrap/locales/bootstrap-wysihtml5.' ~ app.request.locale ~ '.js') }}"></script>
+
+        {% if app.request.locale is not sameas('en') %}
+        <script type="text/javascript" src="{{ asset('bundles/admingeneratorgenerator/js/bootstrap/locales/bootstrap-datepicker.' ~ app.request.locale ~ '.js') }}"></script>
+        {% endif %}
         <script type="text/javascript" src="{{ asset('bundles/admingeneratorgenerator/js/google/prettify.js') }}"></script>
 
         <!-- jquery-ui.min.js  -->
@@ -123,6 +127,9 @@
         <script type="text/javascript" src="{{ asset('bundles/admingeneratorgenerator/js/blueimp/jquery.fileupload.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/admingeneratorgenerator/js/blueimp/jquery.fileupload-fp.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/admingeneratorgenerator/js/blueimp/jquery.fileupload-ui.js') }}"></script>
+
+        <!-- jquery-bbq.min.js  -->
+        <script type="text/javascript" src="{{ asset('bundles/admingeneratorgenerator/js/jquery-bbq/jquery.deparam.js') }}"></script>
 
         <!-- jquery.spin.min.js  -->
         <script type="text/javascript" src="{{ asset('bundles/admingeneratorgenerator/js/spin/jquery.spin.js') }}"></script>
