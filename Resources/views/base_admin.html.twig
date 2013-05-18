@@ -62,7 +62,7 @@
 
   <body>
     {% block navbar %}
-      {{ include('AdmingeneratorGeneratorBundle::base_admin_navbar.html.twig') }}
+      {{ include('AdmingeneratorGeneratorBundle::base_admin_navbar.html.twig') | raw }}
     {% endblock navbar %}
 
     <div class="container-fluid">
@@ -101,7 +101,6 @@
         {% endjavascripts %}
 
         {% javascripts filter='?yui_js' output='assetic/js/compiled/admingenerator/bootstrap.min.js'
-<<<<<<< HEAD
             '@AdmingeneratorGeneratorBundle/Resources/public/js/bootstrap/bootstrap-transition.js'
             '@AdmingeneratorGeneratorBundle/Resources/public/js/bootstrap/bootstrap-alert.js'
             '@AdmingeneratorGeneratorBundle/Resources/public/js/bootstrap/bootstrap-modal.js'
@@ -120,30 +119,11 @@
             '@AdmingeneratorGeneratorBundle/Resources/public/js/bootstrap/bootstrap-datepicker.js'
             '@AdmingeneratorGeneratorBundle/Resources/public/js/bootstrap/locales/*'
             '@AdmingeneratorGeneratorBundle/Resources/public/js/google/prettify.js'
-=======
-            'bundles/admingeneratorgenerator/js/bootstrap/bootstrap-transition.js'
-            'bundles/admingeneratorgenerator/js/bootstrap/bootstrap-alert.js'
-            'bundles/admingeneratorgenerator/js/bootstrap/bootstrap-modal.js'
-            'bundles/admingeneratorgenerator/js/bootstrap/bootstrap-dropdown.js'
-            'bundles/admingeneratorgenerator/js/bootstrap/bootstrap-scrollspy.js'
-            'bundles/admingeneratorgenerator/js/bootstrap/bootstrap-tab.js'
-            'bundles/admingeneratorgenerator/js/bootstrap/bootstrap-tooltip.js'
-            'bundles/admingeneratorgenerator/js/bootstrap/bootstrap-popover.js'
-            'bundles/admingeneratorgenerator/js/bootstrap/bootstrap-button.js'
-            'bundles/admingeneratorgenerator/js/bootstrap/bootstrap-collapse.js'
-            'bundles/admingeneratorgenerator/js/bootstrap/bootstrap-carousel.js'
-            'bundles/admingeneratorgenerator/js/bootstrap/bootstrap-typeahead-extended.js'
-            'bundles/admingeneratorgenerator/js/bootstrap/bootstrap-affix.js'
-            'bundles/admingeneratorgenerator/js/bootstrap/bootstrap-datepicker.js'
-            'bundles/admingeneratorgenerator/js/bootstrap/locales/*'
-            'bundles/admingeneratorgenerator/js/google/prettify.js'
->>>>>>> 19f77fa6d18d266230b0f91a5ab7314cb4097086
         %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
         {% javascripts filter='?yui_js' output='assetic/js/compiled/admingenerator/jquery-ui.min.js'
-<<<<<<< HEAD
             '@AdmingeneratorGeneratorBundle/Resources/public/js/jquery-ui/jquery.ui.core.js'
             '@AdmingeneratorGeneratorBundle/Resources/public/js/jquery-ui/jquery.ui.widget.js'
             '@AdmingeneratorGeneratorBundle/Resources/public/js/jquery-ui/jquery.ui.mouse.js'
@@ -153,17 +133,6 @@
             '@AdmingeneratorGeneratorBundle/Resources/public/js/jquery-ui/jquery.ui.effect.js'
             '@AdmingeneratorGeneratorBundle/Resources/public/js/jquery-ui/jquery.ui.effect-slide.js'
             '@AdmingeneratorGeneratorBundle/Resources/public/js/jquery-ui/jquery.ui.resizable.js'
-=======
-            'bundles/admingeneratorgenerator/js/jquery-ui/jquery.ui.core.js'
-            'bundles/admingeneratorgenerator/js/jquery-ui/jquery.ui.widget.js'
-            'bundles/admingeneratorgenerator/js/jquery-ui/jquery.ui.mouse.js'
-            'bundles/admingeneratorgenerator/js/jquery-ui/jquery.ui.draggable.js'
-            'bundles/admingeneratorgenerator/js/jquery-ui/jquery.ui.droppable.js'
-            'bundles/admingeneratorgenerator/js/jquery-ui/jquery.ui.sortable.js'
-            'bundles/admingeneratorgenerator/js/jquery-ui/jquery.ui.effect.js'
-            'bundles/admingeneratorgenerator/js/jquery-ui/jquery.ui.effect-slide.js'
-
->>>>>>> 19f77fa6d18d266230b0f91a5ab7314cb4097086
         %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
