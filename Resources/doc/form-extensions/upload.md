@@ -31,11 +31,11 @@ It transforms uploaded files into entities and allows easy manipulation of exist
 #### Requirements:
 
 * [VichUploaderBundle](https://github.com/dustin10/VichUploaderBundle)
-* (Optional) [AvalancheImagineBundle](https://github.com/avalanche123/AvalancheImagineBundle)
+* ~~(Optional)~~ [AvalancheImagineBundle](https://github.com/avalanche123/AvalancheImagineBundle)
 
 ### 2. Support
 
-Upload supports **Doctrine ORM** and *may* support (untested) Doctrine ODM and Propel.
+Upload widget is avaliable for **Doctrine ORM**, **Doctrine ODM** and **Propel**.
 
 ### 3. Configuration
 
@@ -212,6 +212,8 @@ class Image implements FileInterface
 **type:** `string` **default:** `null`
 
 If specified, normalized filenames will be autoloaded into this property upon upload.
+
+> **Note:** This property must be added to builder in formType and added to **editable** option.
 
 #### sortable
 

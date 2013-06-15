@@ -6,6 +6,7 @@ class EchoExtension extends \Twig_Extension
 {
     protected $loader;
     protected $controller;
+    protected $blockNames = array();
 
     public function __construct(\Twig_LoaderInterface $loader)
     {
@@ -28,6 +29,8 @@ class EchoExtension extends \Twig_Extension
             'echo_endblock'     => new \Twig_Function_Method($this, 'getEchoEndBlock'),
             'echo_for'          => new \Twig_Function_Method($this, 'getEchoFor'),
             'echo_endfor'       => new \Twig_Function_Method($this, 'getEchoEndFor'),
+            'echo_raw'          => new \Twig_Function_Method($this, 'getEchoRaw'),
+            'echo_endraw'       => new \Twig_Function_Method($this, 'getEchoEndRaw'),
             'echo_extends'      => new \Twig_Function_Method($this, 'getEchoExtends'),
             'echo_if'           => new \Twig_Function_Method($this, 'getEchoIf'),
             'echo_if_granted'   => new \Twig_Function_Method($this, 'getEchoIfGranted'),
@@ -304,7 +307,9 @@ class EchoExtension extends \Twig_Extension
               ? strtr('{{ path("%%path%%") }}', array('%%path%%' => $path))
               : strtr('{{ path("%%path%%")|%%filters%% }}', array('%%path%%' => $path, '%%filters%%' => (is_array($filters) ? implode('|', $filters) : $filters) ));
         }
-
+        
+        $params = preg_replace('/\{\{\s+?([\w\.]+)\s+?\}\}/i', '$1', $params);        
+        
         return (null === $filters)
           ? strtr('{{ path("%%path%%", %%params%%) }}', array('%%path%%' => $path, '%%params%%' => $params))
           : strtr('{{ path("%%path%%", %%params%%)|%%filters%% }}', array('%%path%%' => $path, '%%params%%' => $params, '%%filters%%' => (is_array($filters) ? implode('|', $filters) : $filters) ));
@@ -352,17 +357,18 @@ class EchoExtension extends \Twig_Extension
         return sprintf('{{ %s }}', $str);
     }
 
-    public function getEchoTwigFilter($str, $filters = null)
+    public function getEchoTwigFilter($str, $filters = null, $asString = false)
     {
         if (null === $filters) {
             return $this->getEchoTwig($str);
         }
-        
-        return strtr('{{ %%str%%|%%filters%% }}', array('%%str%%' => $str, '%%filters%%' => (is_array($filters) ? implode('|', $filters) : $filters) ));
+
+        return strtr('{{ %%str%%|%%filters%% }}', array('%%str%%' => $asString ? '"'.$str.'"' : $str, '%%filters%%' => (is_array($filters) ? implode('|', $filters) : $filters) ));
     }
 
     public function getEchoBlock($name)
     {
+        $this->blockNames[] = $name;
         return str_replace('%%name%%', $name, '{% block %%name%% %}');
     }
 
@@ -373,7 +379,7 @@ class EchoExtension extends \Twig_Extension
 
     public function getEchoEndBlock()
     {
-        return '{% endblock %}';
+        return str_replace('%%name%%', array_pop($this->blockNames), '{% endblock %%name%% %}');
     }
 
     public function getEchoFor($object, $in)
@@ -384,6 +390,16 @@ class EchoExtension extends \Twig_Extension
     public function getEchoEndFor()
     {
         return '{% endfor %}';
+    }
+
+    public function getEchoRaw()
+    {
+        return '{% raw %}';
+    }
+
+    public function getEchoEndRaw()
+    {
+        return '{% endraw %}';
     }
 
     /**

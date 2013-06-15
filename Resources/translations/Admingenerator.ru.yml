@@ -8,6 +8,12 @@ date_range:
   from.label: С
   to.label:   По
 
+# Boolean filter
+boolean:
+  yes:        Да
+  no:         Нет
+  yes_or_no:  Да или Нет
+
 # Pager
 pagerfanta:
   previous: Пред
@@ -36,9 +42,10 @@ nested.list:
 
 # Profile
 profile:
-  welcome:  <b>Здравствуйте</b>, %username%!</p>
+  welcome:  <b>Здравствуйте</b>, %username%!
   login:    Войти
   logout:   Выйти
+  exit:     Выход олицетворение режима
 
 # EntityPicker
 entity_picker:
@@ -91,6 +98,8 @@ action.batch.delete:
 batch.list:
   selected:       Выберите действие
   none.selected:  Необходимо выбрать не менее одного элемента.
+  warning:        Не удалось завершить периодического действия из-за отсутствия параметров.
+  send:           Выполнять
 
 # Layout
 dashboard:

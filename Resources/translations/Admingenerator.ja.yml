@@ -8,6 +8,12 @@ date_range:
   from.label: から
   to.label:   へ
 
+# Boolean filter
+boolean:
+  yes:        はい
+  no:         ノー
+  yes_or_no:  諾否
+
 # Pager
 pagerfanta:
   previous: 前へ
@@ -36,9 +42,10 @@ nested.list:
 
 # Profile
 profile:
-  welcome:  ようこそ<b> %username%</b></p>
+  welcome:  <b>ようこそ</b> %username%
   login:    ログイン
   logout:   ログアウト
+  exit:     偽装モードを終了
 
 # EntityPicker
 entity_picker:
@@ -91,6 +98,8 @@ action.batch.delete:
 batch.list:
   selected:       選択済み
   none.selected:  1つ以上のデータを選択する必要があります。
+  warning:        により不足しているパラメータをバッチアクションを完了できませんでした
+  send:           成し遂げる
 
 # Layout
 dashboard:

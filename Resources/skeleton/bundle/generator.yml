@@ -8,7 +8,7 @@ params:
 builders:
   list:
     params:
-      title: Lista 
+      title: Lista
       display: ~
       actions:
         new: ~
@@ -43,4 +43,6 @@ builders:
       actions:
         list: ~
         new: ~
-  delete: ~
+  delete:
+    params:
+      title: "Czy na pewno chcesz usunąć \"%object%\"?|{ %object%: {{ prefix }}.name }|"

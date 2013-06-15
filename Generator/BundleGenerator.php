@@ -28,6 +28,9 @@ class BundleGenerator extends BaseBundleGenerator
     {
         $this->filesystem = $filesystem;
         $this->skeletonDir = $skeletonDir;
+        if (method_exists($this, 'setSkeletonDirs')) {
+            $this->setSkeletonDirs($this->skeletonDir);
+        }
     }
 
     public function setGenerator($generator)
@@ -44,23 +47,18 @@ class BundleGenerator extends BaseBundleGenerator
     {
         $dir .= '/'.strtr($namespace, '\\', '/');
 
-        //tmp fix
-        $this->setSkeletonDirs($this->skeletonDir);
-
         // Retrieves model folder depending of chosen ORM
         $modelFolder = '';
         switch ($generator) {
-          case 'propel':
-            $modelFolder = 'Model';
-            break;
-
-          case 'doctrine':
-            $modelFolder = 'Entity';
-            break;
-
-          case 'doctrine_orm':
-            $modelFolder = 'Document';
-            break;
+            case 'propel':
+                $modelFolder = 'Model';
+                break;
+            case 'doctrine':
+                $modelFolder = 'Entity';
+                break;
+            case 'doctrine_orm':
+                $modelFolder = 'Document';
+                break;
         }
 
         list( $namespace_prefix, $bundle_name) = explode('\\', $namespace, 2);
@@ -76,23 +74,47 @@ class BundleGenerator extends BaseBundleGenerator
         );
 
         if (!file_exists($dir.'/'.$bundle.'.php')) {
-            $this->renderFile('Bundle.php', $dir.'/'.$bundle.'.php', $parameters);
+            $this->renderGeneratedFile('Bundle.php', $dir.'/'.$bundle.'.php', $parameters);
         }
 
         foreach ($this->actions as $action) {
             $parameters['action'] = $action;
-            $this->renderFile('DefaultController.php', $dir.'/Controller/'.($this->prefix ? ucfirst($this->prefix).'/' : '').$action.'Controller.php', $parameters);
 
-            if ('Delete' !== $action) {
-                $this->renderFile(strtolower($action).'.html.twig', $dir.'/Resources/views/'.ucfirst($this->prefix).'/'.strtolower($action).'.html.twig', $parameters);
-            }
+            $this->renderGeneratedFile(
+                'DefaultController.php',
+                $dir.'/Controller/'.($this->prefix ? ucfirst($this->prefix).'/' : '').$action.'Controller.php',
+                $parameters
+            );
+
+            $this->renderGeneratedFile(
+                strtolower($action).'.html.twig',
+                $dir.'/Resources/views/'.ucfirst($this->prefix).'/'.strtolower($action).'.html.twig',
+                $parameters
+            );
         }
 
         foreach ($this->forms as $form) {
             $parameters['form'] = $form;
-            $this->renderFile('DefaultType.php', $dir.'/Form/Type/'.($this->prefix ? ucfirst($this->prefix).'/' : '').$form.'Type.php', $parameters);
+            $this->renderGeneratedFile(
+                'DefaultType.php',
+                $dir.'/Form/Type/'.($this->prefix ? ucfirst($this->prefix).'/' : '').$form.'Type.php',
+                $parameters
+            );
         }
 
-        $this->renderFile('generator.yml', $dir.'/Resources/config/admin/'.($this->prefix ? ucfirst($this->prefix).'-' : '').'generator.yml', $parameters);
+        $this->renderGeneratedFile(
+            'generator.yml',
+            $dir.'/Resources/config/admin/'.($this->prefix ? ucfirst($this->prefix).'-' : '').'generator.yml',
+            $parameters
+        );
+    }
+
+    protected function renderGeneratedFile($template, $target, array $parameters)
+    {
+        if (method_exists($this, 'setSkeletonDirs')) {
+            $this->renderFile($template, $target, $parameters);
+        } else {
+            $this->renderFile($this->skeletonDir, $template, $target, $parameters);
+        }
     }
 }

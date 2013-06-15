@@ -8,6 +8,12 @@ date_range:
   from.label: Od
   to.label:   Do
 
+# Boolean filter
+boolean:
+  yes:        Tak
+  no:         Nie
+  yes_or_no:  Tak lub Nie
+
 # Pager
 pagerfanta:
   previous: Poprzednia
@@ -36,9 +42,10 @@ nested.list:
 
 # Profile
 profile:
-  welcome:  <b>Witaj</b>, %username%!</p>
+  welcome:  <b>Witaj</b>, %username%!
   login:    Zaloguj
   logout:   Wyloguj
+  exit:     Wyjście z trybu personifikacji
 
 # EntityPicker
 entity_picker:
@@ -95,6 +102,8 @@ action.batch.delete:
 batch.list:
   selected:       Zaznaczone
   none.selected:  Musisz zaznaczyć co najmniej jeden element.
+  warning:        Nie można było ukończyć grupowej akcji ze względu na brakujące parametry.
+  send:           Wykonaj
 
 # Layout
 dashboard:

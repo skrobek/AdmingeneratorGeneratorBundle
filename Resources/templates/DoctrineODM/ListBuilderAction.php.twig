@@ -41,7 +41,7 @@ use Pagerfanta\Adapter\DoctrineODMMongoDBAdapter as PagerAdapter;
             {%- if 'document' == builder.getFieldGuesser().getDbType(model, filter) or 'collection' == builder.getFieldGuesser().getDbType(model, filter) -%}
 
         if (isset($filters['{{ filter }}'])) {
-                $filters['{{ filter }}'] = $this->getDoctrine()->getRepository($filters['{{ filter }}']['documentName'])->find($filters['{{ filter }}']['id']);
+                $filters['{{ filter }}'] = $this->getDoctrineMongoDB()->getRepository($filters['{{ filter }}']['documentName'])->find($filters['{{ filter }}']['id']);
         }
 
             {%- endif %}
@@ -97,7 +97,7 @@ use Pagerfanta\Adapter\DoctrineODMMongoDBAdapter as PagerAdapter;
             {%- if 'document' == builder.getFieldGuesser().getDbType(model, filter) or 'collection' == builder.getFieldGuesser().getDbType(model, filter) -%}
 
         if (isset($filters['{{ filter }}'])) {
-             $this->getDocumentManager()->getUnitOfWork()->registerManaged($filters['{{ filter }}'], array($filters['{{ filter }}']->getId()), array());
+             $this->getDocumentManager()->getUnitOfWork()->registerManaged($filters['{{ filter }}'], $filters['{{ filter }}']->getId(), array());
         }
 
             {%- endif %}
@@ -187,14 +187,15 @@ use Pagerfanta\Adapter\DoctrineODMMongoDBAdapter as PagerAdapter;
 {% endblock %}
 
 {% block doBatchDelete -%}
-    protected function doBatchDelete(array $ids)
+    protected function doBatchDelete(array $selected)
     {
-        if ($this->getDoctrine()
-            ->getDocumentManager()
-            ->createQuery(sprintf('delete from {{ model }} q where q.{{ builder.getFieldGuesser().getModelPrimaryKeyName(model) }} IN (%s)', implode(',', $ids)))
-            ->execute()) {
+        try {
+            $this->getDoctrineMongoDB()
+                ->getDocumentManager()
+                ->createQuery(sprintf('delete from {{ model }} q where q.{{ builder.getFieldGuesser().getModelPrimaryKeyName(model) }} IN (%s)', implode(',', $selected)))
+                ->execute();
             $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans("{{ "action.batch.delete.success" }}", array(), 'Admingenerator') );
-        } else {
+        } catch (\Exception $e) {
             $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans("{{ "action.batch.delete.error" }}", array(), 'Admingenerator') );
         }
     }

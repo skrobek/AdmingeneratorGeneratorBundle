@@ -8,6 +8,12 @@ date_range:
   from.label: Od
   to.label:   Do
 
+# Boolean filter
+boolean:
+  yes:        Da
+  no:         Ne
+  yes_or_no:  Da ali Ne
+
 # Pager
 pagerfanta:
   previous: Nazaj
@@ -36,9 +42,10 @@ nested.list:
 
 # Profile
 profile:
-  welcome:  <b>Dobrodošli</b>, %username%!</p>
+  welcome:  <b>Dobrodošli</b>, %username%!
   login:    Prijava
   logout:   Odjava
+  exit:     Izhod iz lažnem
 
 # EntityPicker
 entity_picker:
@@ -91,6 +98,8 @@ action.batch.delete:
 batch.list:
   selected:       Izbrano
   none.selected:  Izbrati morate vsaj en element.
+  warning:        Ni mogel dokončati serije tožbo zaradi manjkajočih parametrov.
+  send:           Izvršiti
 
 # Layout
 dashboard:

@@ -3,7 +3,7 @@
 
 [![KnpBundles Badge](http://knpbundles.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/badge-short)](http://knpbundles.com/symfony2admingenerator/AdmingeneratorGeneratorBundle)
 ![project status](http://stillmaintained.com/cedriclombardot/AdmingeneratorGeneratorBundle.png) 
-![build status](https://secure.travis-ci.org/symfony2admingenerator/AdmingeneratorGeneratorBundle.png)
+[![build status](https://secure.travis-ci.org/symfony2admingenerator/AdmingeneratorGeneratorBundle.png)](http://travis-ci.org/symfony2admingenerator/AdmingeneratorGeneratorBundle)
 
 ### The Real Missing Admin Generator for Symfony2! 
 This package is a Symfony2 Admin Generator based on YAML configuration and Twig templating. It's inspired by [fzaninotto/Doctrine2ActiveRecord](https://github.com/fzaninotto/Doctrine2ActiveRecord).
@@ -25,16 +25,18 @@ Don't miss any updates from **Symfony2 Admin Generator**! Join Twitter today and
 * **List features:** sortable, paginated, filters, batch actions, scopes
 * **Nestedset tree list features:** drag&drop to manage your tree
 * **New/Edit featues:** fieldsets, tabbable, cool widgets for *collection, file upload, date and entity* fields
-* Translated into DE, **EN (default)**, ES, FR, IT, JA, PL, PT, RU, SL, TR, UK (you can easily contribute to add your own)
+* Translated into DE, **EN (default)**, ES, FA, FR, IT, JA, PL, PT, RU, SL, TR, UK (you can easily contribute to add your own)
 * Credentials for actions, columns and form fields
 * Complete admin design based on [twitter bootstrap](http://twitter.github.com/bootstrap/) *(see next section)*
 * ... and more!
 
 ## This bundle in pictures
 
-![Preview of list](https://github.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/raw/master/Resources/old-doc/doc_list.png)
+![Preview of list](https://github.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/raw/master/Resources/preview/list-preview.png)
 
-![Preview of edit](https://github.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/raw/master/Resources/old-doc/doc_edit.png)
+![Preview of edit](https://github.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/raw/master/Resources/preview/edit-preview.png)
+
+![Preview of dashboard](https://github.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/raw/master/Resources/preview/dashboard-welcome-preview.png)
 
 # Important note
 

@@ -8,6 +8,12 @@ date_range:
   from.label: From
   to.label:   To
 
+# Boolean filter
+boolean:
+  yes:        Yes
+  no:         No
+  yes_or_no:  Yes or No
+
 # Pager
 pagerfanta:
   previous: Previous
@@ -36,9 +42,10 @@ nested.list:
 
 # Profile
 profile:
-  welcome:  <b>Welcome</b>, %username%!</p>
+  welcome:  <b>Welcome</b>, %username%!
   login:    Login
   logout:   Log out
+  exit:     Exit impersonation mode
 
 # EntityPicker
 entity_picker:
@@ -95,6 +102,9 @@ action.batch.delete:
 batch.list:
   selected:       Selected
   none.selected:  You have to select at least one element.
+  warning:        Could not complete batch action due to missing parameters
+  send:           Execute
+  
 
 # Layout
 dashboard:
@@ -114,3 +124,7 @@ filetype:
   text-document:    Text<br />Document
   unknown:          Unknown<br />Filetype
   video:            Video
+
+delete.action:
+  confirm: Yes
+  cancel: No
