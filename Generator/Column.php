@@ -47,6 +47,12 @@ class Column
         $this->sortable = true;
     }
 
+    public function setProperty($option, $value)
+    {
+        $option = Inflector::classify($option);
+        call_user_func_array(array($this, 'set'.$option), array($value));
+    }
+
     public function getName()
     {
         return $this->name;
@@ -124,7 +130,7 @@ class Column
 
     private function humanize($text)
     {
-        return ucfirst(strtolower(str_replace('_', ' ', $text)));
+        return ucfirst(str_replace('_', ' ', $text));
     }
 
     public function setDbType($dbType)
@@ -155,12 +161,6 @@ class Column
     public function getFormOptions()
     {
         return $this->formOptions;
-    }
-
-    public function setOption($option, $value)
-    {
-        $option = Inflector::classify($option);
-        call_user_func_array(array($this, 'set'.$option), array($value));
     }
 
     public function setCredentials($crendentials)

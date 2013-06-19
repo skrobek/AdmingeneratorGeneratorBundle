@@ -4,7 +4,10 @@ params:
   namespace_prefix: {{ namespace_prefix }}
   bundle_name: {{ bundle_name }}
   fields: ~
-
+  object_actions:
+        delete: ~
+  batch_actions:
+        delete: ~
 builders:
   list:
     params:
@@ -43,6 +46,9 @@ builders:
       actions:
         list: ~
         new: ~
-  delete:
+  actions:
     params:
-      title: "Czy na pewno chcesz usunąć \"%object%\"?|{ %object%: {{ prefix }}.name }|"
+      object_actions:
+        delete: ~
+      batch_actions:
+        delete: ~

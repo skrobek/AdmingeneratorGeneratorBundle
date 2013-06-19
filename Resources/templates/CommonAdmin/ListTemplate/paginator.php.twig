@@ -1,7 +1,29 @@
-{% block list_paginator %}
-{{ echo_block("list_paginator") }}
-    <div class="pagination pagination-right">
+{% block list_paginator_perpage %}
+{{ echo_block("list_paginator_perpage") }}
+    {{ echo_if( builder.ModelClass ~ "s.haveToPaginate") }}
+    <div class="btn-group input-prepend">
+        <div class="btn btn-reset">{{ echo_trans('pagerfanta.view.perpage') }}</div>
+        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            {{ echo_twig('"pagerfanta.num.elements"|trans({"%number%": '~ builder.ModelClass ~ 's.maxPerPage}, "Admingenerator")') }} <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu pull-right" style="min-width: 60px;">
+            {{ echo_for('perPage', '[10, 25, 50, 75, 100]') }}
+            <li>
+                <a href="{{ echo_path(builder.routePrefixWithSubfolder ~ '_' ~ bundle_name ~ ( builder.BaseGeneratorName ? "_" ~ builder.BaseGeneratorName : "" ) ~ '_list', '{perPage: perPage}') }}">
+                    {{ echo_twig('"pagerfanta.num.elements"|trans({"%number%": perPage}, "Admingenerator")') }}
+                </a>
+            </li>
+            {{ echo_endfor() }}
+        </ul>
+    </div>
+    {{ echo_endif() }}
+{{ echo_endblock() }}
+{% endblock %}
+
+{% block list_paginator_pages %}
+    {{ echo_block('list_paginator_pages') }}
+    <div class="pagination pull-right">
         {{ echo_twig("pagerfanta(" ~ builder.ModelClass ~ "s, 'admingenerator')") }}
     </div>
-{{ echo_endblock() }}
+    {{ echo_endblock() }}
 {% endblock %}
