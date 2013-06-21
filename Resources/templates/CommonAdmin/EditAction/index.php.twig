@@ -16,6 +16,8 @@ use {{ builder.namespacePrefixWithSubfolder }}\{{ bundle_name }}\Form\Type\{{ bu
             throw new NotFoundHttpException("The {{ model }} with {{ builder.getFieldGuesser().getModelPrimaryKeyName(model) }} $pk can't be found");
         }
 
+        $form = $this->createForm($this->getEditType(), ${{ builder.ModelClass }});
+
         return $this->render('{{ namespace_prefix }}{{ bundle_name }}:{{ builder.BaseGeneratorName }}:edit.html.twig', $this->getAdditionalRenderParameters(${{ builder.ModelClass }}) + array(
             "{{ builder.ModelClass }}" => ${{ builder.ModelClass }},
             "form" => $form->createView(),
