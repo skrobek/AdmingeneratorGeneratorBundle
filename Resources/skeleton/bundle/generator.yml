@@ -1,10 +1,12 @@
 generator: {{ generator }}
 params:
-  model: {{ namespace }}\{{ model_folder }}\{{ model_name }}
-  namespace_prefix: {{ namespace_prefix }}
-  bundle_name: {{ bundle_name }}
-  fields: ~
-  object_actions:
+    model: {{ namespace }}\{{ model_folder }}\{{ model_name }}
+    namespace_prefix: {{ namespace_prefix }}
+    entity_manager: ~
+    concurrency_lock: ~
+    bundle_name: {{ bundle_name }}
+    fields: ~
+    object_actions:
         delete: ~
   batch_actions:
         delete: ~
