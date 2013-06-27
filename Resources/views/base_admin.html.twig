@@ -60,6 +60,10 @@
         %}
             <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all" />
         {% endstylesheets %}
+        
+        {% if form is defined %}
+            {{ form_stylesheet(form) }}
+        {% endif %}
     {% endblock %}
 
     {% block icons %}
@@ -178,6 +182,10 @@
         %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
+        
+        {% if form is defined %}
+            {{ form_javascript(form) }}
+        {% endif %}
     {% endblock %}
 
   </body>
