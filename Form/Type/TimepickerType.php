@@ -31,17 +31,18 @@ class TimepickerType extends AbstractType
             'modalBackdrop' => false,
             'secondStep' => 15,
             'showSeconds' => false,
-            'showInputs' => true,
+            'showInputs' => false,
             'showMeridian' => false,
             'template' => 'dropdown',
             'appendWidgetTo' => '.bootstrap-timepicker',
+            'read_only' => true
         ));
 
         $resolver->replaceDefaults(array(
             'widget' => 'single_text'
         ));
     }
-    
+
 
     public function getParent(){
         return 'time';
