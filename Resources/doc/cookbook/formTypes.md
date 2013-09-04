@@ -3,16 +3,12 @@
 
 [go back to Table of contents][back-to-index]
 
-[back-to-index]: https://github.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/blob/master/Resources/doc/documentation.md#8-cookbook
+[back-to-index]: https://github.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/blob/master/Resources/doc/documentation.md#7-cookbook
 
 ## 1. Customize form options with PHP logic
 
 If you need to customize your form options using some PHP logic, you have to overwrite function `getFormOption` in
 the generated form type.
-
-```php
-protected function getAdditionalRenderParameters(); // No parameters
-```
 
 Prototype is:
 ```php

@@ -2,6 +2,10 @@
 
 namespace Admingenerator\GeneratorBundle\Twig\Extension;
 
+/**
+ * @author Cedric LOMBARDOT
+ * @author Piotr Gołębiewski <loostro@gmail.com>
+ */
 class EchoExtension extends \Twig_Extension
 {
     protected $loader;
@@ -24,29 +28,29 @@ class EchoExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'echo_twig'         => new \Twig_Function_Method($this, 'getEchoTwig'),
-            'echo_block'        => new \Twig_Function_Method($this, 'getEchoBlock'),
-            'echo_endblock'     => new \Twig_Function_Method($this, 'getEchoEndBlock'),
-            'echo_for'          => new \Twig_Function_Method($this, 'getEchoFor'),
-            'echo_endfor'       => new \Twig_Function_Method($this, 'getEchoEndFor'),
-            'echo_raw'          => new \Twig_Function_Method($this, 'getEchoRaw'),
-            'echo_endraw'       => new \Twig_Function_Method($this, 'getEchoEndRaw'),
-            'echo_spaceless'    => new \Twig_Function_Method($this, 'getEchoSpaceless'),
-            'echo_endspaceless' => new \Twig_Function_Method($this, 'getEchoEndSpaceless'),
-            'echo_extends'      => new \Twig_Function_Method($this, 'getEchoExtends'),
-            'echo_if'           => new \Twig_Function_Method($this, 'getEchoIf'),
-            'echo_if_granted'   => new \Twig_Function_Method($this, 'getEchoIfGranted'),
-            'echo_else'         => new \Twig_Function_Method($this, 'getEchoElse'),
-            'echo_elseif'       => new \Twig_Function_Method($this, 'getEchoElseIf'),
-            'echo_endif'        => new \Twig_Function_Method($this, 'getEchoEndIf'),
-            'echo_path'         => new \Twig_Function_Method($this, 'getEchoPath'),
-            'echo_set'          => new \Twig_Function_Method($this, 'getEchoSet'),
-            'echo_trans'        => new \Twig_Function_Method($this, 'getEchoTrans'),
-            'echo_twig_assoc'   => new \Twig_Function_Method($this, 'getEchoTwigAssoc'),
-            'echo_twig_filter'  => new \Twig_Function_Method($this, 'getEchoTwigFilter'),
-            'echo_include'      => new \Twig_Function_Method($this, 'getEchoInclude'),
-            'echo_render'       => new \Twig_Function_Method($this, 'getEchoRender'),
-            'char'              => new \Twig_Function_Method($this, 'char'),
+            'echo_twig'           => new \Twig_Function_Method($this, 'getEchoTwig'),
+            'echo_block'          => new \Twig_Function_Method($this, 'getEchoBlock'),
+            'echo_endblock'       => new \Twig_Function_Method($this, 'getEchoEndBlock'),
+            'echo_for'            => new \Twig_Function_Method($this, 'getEchoFor'),
+            'echo_endfor'         => new \Twig_Function_Method($this, 'getEchoEndFor'),
+            'echo_raw'            => new \Twig_Function_Method($this, 'getEchoRaw'),
+            'echo_endraw'         => new \Twig_Function_Method($this, 'getEchoEndRaw'),
+            'echo_spaceless'      => new \Twig_Function_Method($this, 'getEchoSpaceless'),
+            'echo_endspaceless'   => new \Twig_Function_Method($this, 'getEchoEndSpaceless'),
+            'echo_extends'        => new \Twig_Function_Method($this, 'getEchoExtends'),
+            'echo_if'             => new \Twig_Function_Method($this, 'getEchoIf'),
+            'echo_if_granted'     => new \Twig_Function_Method($this, 'getEchoIfGranted'),
+            'echo_else'           => new \Twig_Function_Method($this, 'getEchoElse'),
+            'echo_elseif'         => new \Twig_Function_Method($this, 'getEchoElseIf'),
+            'echo_endif'          => new \Twig_Function_Method($this, 'getEchoEndIf'),
+            'echo_path'           => new \Twig_Function_Method($this, 'getEchoPath'),
+            'echo_set'            => new \Twig_Function_Method($this, 'getEchoSet'),
+            'echo_trans'          => new \Twig_Function_Method($this, 'getEchoTrans'),
+            'echo_twig_assoc'     => new \Twig_Function_Method($this, 'getEchoTwigAssoc'),
+            'echo_twig_filter'    => new \Twig_Function_Method($this, 'getEchoTwigFilter'),
+            'echo_include'        => new \Twig_Function_Method($this, 'getEchoInclude'),
+            'echo_render'         => new \Twig_Function_Method($this, 'getEchoRender'),
+            'char'                => new \Twig_Function_Method($this, 'char'),
         );
     }
 
@@ -54,27 +58,27 @@ class EchoExtension extends \Twig_Extension
     {
         return array(
             'as_php'          => new \Twig_Filter_Method($this, 'asPhp'),
-            'convert_as_form' => new \Twig_Filter_Method($this, 'convertAsForm'),
             'php_name'        => new \Twig_Filter_Method($this, 'phpName'),
             'wrap'            => new \Twig_Filter_Method($this, 'wrap'),
+            'convert_as_form' => new \Twig_Filter_Method($this, 'convertAsForm'),
         );
     }
 
     /**
-     * Try to convert options of form given as string from yaml to a good object
-     *
-     * eg type option for collection type
-     *
-     * @param string $options  the string as php
-     * @param string $formType the form type
-     *
-     * @return string the new options
-     */
+    * Try to convert options of form given as string from yaml to a good object
+    *
+    * eg type option for collection type
+    *
+    * @param string $options the string as php
+    * @param string $formType the form type
+    *
+    * @return string the new options
+    */
     public function convertAsForm($options, $formType)
     {
         $options = preg_replace("/'__php\((.+?)\)'/i", '$1', $options, -1, $count);
 
-        if ('collection' == $formType || 'upload' == $formType) {
+        if (preg_match("#^collection#i", $formType) || preg_match("#collection$#i", $formType) || $formType == 'upload') {
             preg_match("/'type' => '(.+?)'/i", $options, $matches);
 
             if (count($matches) > 0) {
@@ -82,12 +86,21 @@ class EchoExtension extends \Twig_Extension
                 // Sanity check: prepend with "new" and append with "()"
                 // only if type option is a Fully qualified name
                 if (preg_match($pattern_formtype, $matches[1])) {
-                  $options = str_replace("'type' => '".$matches[1]."'", '\'type\' =>  new '.stripslashes($matches[1]).'()', $options);
+                    $options = str_replace("'type' => '".$matches[1]."'", '\'type\' => new '.stripslashes($matches[1]).'()', $options);
                 }
             }
         }
 
-        if ('model' == $formType) {
+        if (preg_match("#^entity#i", $formType) || preg_match("#entity$#i", $formType) ||
+            preg_match("#^document#i", $formType) || preg_match("#document$#i", $formType)) {
+            preg_match("/'query_builder' => '(.+?)',/i", $options, $matches);
+
+            if (count($matches) > 0) {
+                $options = str_replace("'query_builder' => '".$matches[1]."'", '\'query_builder\' => '.stripslashes($matches[1]), $options);
+            }
+        }
+
+        if (preg_match("#^model#i", $formType) || preg_match("#model$#i", $formType)) {
             preg_match("/'query' => '(.+?)',/i", $options, $matches);
 
             if (count($matches) > 0) {
@@ -103,8 +116,8 @@ class EchoExtension extends \Twig_Extension
             }
         }
 
-        if ('form_widget'== $formType) { // For type wich are not strings
-            preg_match("/\'(.*)Type/", $options, $matches);
+        if (preg_match('#^(.+)Type$#i', $formType) || 'form_widget'== $formType) { // For type wich are not strings
+            preg_match("/\'(.*)Type\'/", $options, $matches);
 
             if (count($matches) > 0) {
                 return 'new '.stripslashes($matches[1]).'Type()';
@@ -113,41 +126,41 @@ class EchoExtension extends \Twig_Extension
 
         return $options;
     }
-
+    
     public function asPhp($variable)
     {
-       if (!is_array($variable)) {
-           return $this->export($variable);
-       }
+        if (!is_array($variable)) {
+            return $this->export($variable);
+        }
 
-       $str = $this->export($variable);
+        $str = $this->export($variable);
 
-       preg_match_all('/[^> ]+::__set_state\(array\((.+),\'loaded/i', $str, $matches);
+        preg_match_all('/[^> ]+::__set_state\(array\((.+),\'loaded/i', $str, $matches);
 
-       if (isset($matches[1][0])) {
-           $params = 'return array('.$matches[1][0].')';
-           $params = eval($params. '?>');
+        if (isset($matches[1][0])) {
+            $params = 'return array('.$matches[1][0].')';
+            $params = eval($params. '?>');
 
-           $str_param = '';
-           foreach ($params as $p) {
-               if ('' !== $str_param) {
-                   $str_param .= ', ';
-               }
-               $str_param .= $this->export($p);
-           }
+            $str_param = '';
+            foreach ($params as $p) {
+                if ('' !== $str_param) {
+                    $str_param .= ', ';
+                }
+                $str_param .= $this->export($p);
+            }
 
-           $str = preg_replace("/([^> ]+)::__set_state\(/i", ' new \\\$0', $str);
-           $str = str_replace('::__set_state', '', $str);
-           $str = str_replace('array('.$matches[1][0].',\'loaded\' => false,  )', $str_param, $str);
-       }
+            $str = preg_replace("/([^> ]+)::__set_state\(/i", ' new \\\$0', $str);
+            $str = str_replace('::__set_state', '', $str);
+            $str = str_replace('array('.$matches[1][0].',\'loaded\' => false,  )', $str_param, $str);
+        }
 
-       return $str;
+        return $str;
 
     }
 
     /**
      * Converts string into valid PHP function name
-     * 
+     *
      * @param string $str
      * @return string
      */
@@ -160,7 +173,7 @@ class EchoExtension extends \Twig_Extension
 
     /**
      * Wrap string around with given string only if string is not empty
-     * 
+     *
      * @param string $str
      * @param string $wrap
      * @return string
@@ -177,23 +190,23 @@ class EchoExtension extends \Twig_Extension
 
     /**
      * Get characters by code
-     * 
+     *
      * Note: if the code is higher than 256, it will return the code mod 256.
      * For example: chr(321)=A because A=65(256)
-     * 
+     *
      * @param integer Any number of integer codes
      * @return string
      */
     public function char()
     {
         $str = '';
-        
-        foreach(func_get_args() as $char) {
+
+        foreach (func_get_args() as $char) {
             if (is_int($char)) {
                 $str .= chr($char);
             }
         }
-        
+
         return $str;
     }
 
@@ -261,67 +274,72 @@ class EchoExtension extends \Twig_Extension
      */
     private function getParameterBag($subject)
     {
-      # Backwards compability - replace twig tags with parameters
-      $pattern_bc = '/\{\{\s(?<param>[a-zA-Z0-9.]+)\s\}\}+/';
+        // Backwards compability - replace twig tags with parameters
+        $pattern_bc = '/\{\{\s(?<param>[a-zA-Z0-9.]+)\s\}\}+/';
 
-      if (preg_match_all($pattern_bc, $subject, $match_params)) {
-        $string = preg_filter($pattern_bc, '%\1%', $subject);
+        if (preg_match_all($pattern_bc, $subject, $match_params)) {
+            $string = preg_filter($pattern_bc, '%\1%', $subject);
 
-        $param = array();
-        foreach ($match_params['param'] as $value) { $param[$value] = $value; }
+            $param = array();
+            foreach ($match_params['param'] as $value) {
+                $param[$value] = $value;
+            }
 
-        return array(
-            'string' => $string,
-            'params' => $param
-        );
-      }
+            return array(
+                'string' => $string,
+                'params' => $param
+            );
+        }
 
-      # Feature - read key/value syntax parameters
-      $pattern_string = '/^(?<string>[^|]+)(?<parameter_bag>\|\{(\s?%[a-zA-Z0-9.]+%:\s[a-zA-Z0-9.]+,?\s?)+\s?\}\|)\s*$/';
-      $pattern_params = '/(?>(?<=(\|\{\s|.,\s))%(?<key>[a-zA-Z0-9.]+)%:\s(?<value>[a-zA-Z0-9.]+)(?=(,\s.|\s\}\|)))+/';
+        # Feature - read key/value syntax parameters
+        $pattern_string = '/^(?<string>[^|]+)(?<parameter_bag>\|\{(\s?%[a-zA-Z0-9.]+%:\s[a-zA-Z0-9.]+,?\s?)+\s?\}\|)\s*$/';
+        $pattern_params = '/(?>(?<=(\|\{\s|.,\s))%(?<key>[a-zA-Z0-9.]+)%:\s(?<value>[a-zA-Z0-9.]+)(?=(,\s.|\s\}\|)))+/';
 
-      if ( preg_match($pattern_string, $subject, $match_string) ) {
-          $string = $match_string['string'];
-          $parameter_bag = $match_string['parameter_bag'];
+        if (preg_match($pattern_string, $subject, $match_string)) {
+            $string = $match_string['string'];
+            $parameter_bag = $match_string['parameter_bag'];
 
-          $param = array();
-          preg_match_all($pattern_params, $parameter_bag, $match_params, PREG_SET_ORDER);
+            $param = array();
+            preg_match_all($pattern_params, $parameter_bag, $match_params, PREG_SET_ORDER);
 
-          foreach ($match_params as $match) { $param[$match['key']] = $match['value']; }
+            foreach ($match_params as $match) {
+                $param[$match['key']] = $match['value'];
+            }
 
-          return array(
-              'string' => $string,
-              'params' => $param
-          );
-      }
+            return array(
+                'string' => $string,
+                'params' => $param
+            );
+        }
 
-      # Feature - read abbreviated syntax parameters
-      $abbreviated_pattern_string = '/^(?<string>[^|]+)(?<parameter_bag>\|\{(\s?[a-zA-Z0-9.]+,?\s?)+\s?\}\|)\s*$/';
-      $abbreviated_pattern_params = '/(?>(?<=(\|\{\s|.,\s))(?<param>[a-zA-Z0-9.]+)(?=(,\s.|\s\}\|)))+?/';
+        # Feature - read abbreviated syntax parameters
+        $abbreviated_pattern_string = '/^(?<string>[^|]+)(?<parameter_bag>\|\{(\s?[a-zA-Z0-9.]+,?\s?)+\s?\}\|)\s*$/';
+        $abbreviated_pattern_params = '/(?>(?<=(\|\{\s|.,\s))(?<param>[a-zA-Z0-9.]+)(?=(,\s.|\s\}\|)))+?/';
 
-      if ( preg_match($abbreviated_pattern_string, $subject, $match_string)) {
-          $string = $match_string['string'];
-          $parameter_bag = $match_string['parameter_bag'];
+        if (preg_match($abbreviated_pattern_string, $subject, $match_string)) {
+            $string = $match_string['string'];
+            $parameter_bag = $match_string['parameter_bag'];
 
-          $param = array();
-          preg_match_all($abbreviated_pattern_params, $parameter_bag, $match_params);
+            $param = array();
+            preg_match_all($abbreviated_pattern_params, $parameter_bag, $match_params);
 
-          foreach ($match_params['param'] as $value) { $param[$value] = $value; }
+            foreach ($match_params['param'] as $value) {
+                $param[$value] = $value;
+            }
 
-          return array(
-              'string' => $string,
-              'params' => $param
-          );
-      }
+            return array(
+                'string' => $string,
+                'params' => $param
+            );
+        }
 
-      # If subject does not match any pattern, return false
-
-      return false;
+        // If subject does not match any pattern, return false
+        return false;
     }
 
-    public function getEchoTrans($str, array $parameters=array(), $catalog = 'Admingenerator')
+    public function getEchoTrans($str, array $parameters = array(), $catalog = 'Admingenerator')
     {
-        $echo_parameters=NULL;
+        $echo_parameters=null;
         $bag_parameters=array();
 
         if ($parameterBag = $this->getParameterBag($str)) {
@@ -333,10 +351,10 @@ class EchoExtension extends \Twig_Extension
             $echo_parameters="with {";
 
             foreach ($parameters as $key => $value) {
-              $echo_parameters.= "'%".$key."%': '".$value."',";
+                $echo_parameters.= "'%".$key."%': '".$value."',";
             }
             foreach ($bag_parameters as $key => $value) {
-              $echo_parameters.= "'%".$key."%': ".$value.",";
+                $echo_parameters.= "'%".$key."%': ".$value.",";
             }
 
             $echo_parameters.="} ";
@@ -348,9 +366,9 @@ class EchoExtension extends \Twig_Extension
     public function getEchoSet($var, $value, $value_as_string = true)
     {
         if ($value_as_string) {
-            return strtr('{% set %%var%% = "%%value%%" %}',array('%%var%%' => $var, '%%value%%' => $value));
+            return strtr('{% set %%var%% = "%%value%%" %}', array('%%var%%' => $var, '%%value%%' => $value));
         } else {
-            return strtr('{% set %%var%% = %%value%% %}',array('%%var%%' => $var, '%%value%%' => $value));
+            return strtr('{% set %%var%% = %%value%% %}', array('%%var%%' => $var, '%%value%%' => $value));
         }
     }
 
@@ -358,30 +376,43 @@ class EchoExtension extends \Twig_Extension
     {
         if (null === $params) {
             return (null === $filters)
-              ? strtr('{{ path("%%path%%") }}', array('%%path%%' => $path))
-              : strtr('{{ path("%%path%%")|%%filters%% }}', array('%%path%%' => $path, '%%filters%%' => (is_array($filters) ? implode('|', $filters) : $filters) ));
+                ? strtr('{{ path("%%path%%") }}', array('%%path%%' => $path))
+                : strtr(
+                    '{{ path("%%path%%")|%%filters%% }}',
+                    array(
+                        '%%path%%' => $path,
+                        '%%filters%%' => (is_array($filters) ? implode('|', $filters) : $filters)
+                    )
+                );
         }
 
         $params = preg_replace('/\{\{\s+?([\w\.]+)\s+?\}\}/i', '$1', $params);
 
         return (null === $filters)
-          ? strtr('{{ path("%%path%%", %%params%%) }}', array('%%path%%' => $path, '%%params%%' => $params))
-          : strtr('{{ path("%%path%%", %%params%%)|%%filters%% }}', array('%%path%%' => $path, '%%params%%' => $params, '%%filters%%' => (is_array($filters) ? implode('|', $filters) : $filters) ));
+            ? strtr('{{ path("%%path%%", %%params%%) }}', array('%%path%%' => $path, '%%params%%' => $params))
+            : strtr(
+                '{{ path("%%path%%", %%params%%)|%%filters%% }}',
+                array(
+                    '%%path%%' => $path,
+                    '%%params%%' => $params,
+                    '%%filters%%' => (is_array($filters) ? implode('|', $filters) : $filters)
+                )
+            );
     }
 
     public function getEchoIfGranted($credentials, $modelName = null)
     {
-       if (null === $modelName) {
+        if (null === $modelName) {
             return $this->getEchoIf('is_expr_granted(\''.$credentials.'\')');
-       }
+        }
 
-       return $this->getEchoIf('is_expr_granted(\''.$credentials.'\', '.$modelName.')');
+        return $this->getEchoIf('is_expr_granted(\''.$credentials.'\', '.$modelName.')');
     }
 
     public function getEchoIf($condition)
     {
-        if ( is_bool( $condition ) ) {
-            $condition = intval( $condition );
+        if (is_bool($condition)) {
+            $condition = intval($condition);
         }
 
         return str_replace('%%condition%%', $condition, '{% if %%condition%% %}');
@@ -389,8 +420,8 @@ class EchoExtension extends \Twig_Extension
 
     public function getEchoElseIf($condition)
     {
-        if ( is_bool( $condition ) ) {
-            $condition = intval( $condition );
+        if (is_bool($condition)) {
+            $condition = intval($condition);
         }
 
         return str_replace('%%condition%%', $condition, '{% elseif %%condition%% %}');
@@ -417,7 +448,13 @@ class EchoExtension extends \Twig_Extension
             return $this->getEchoTwig($str);
         }
 
-        return strtr('{{ %%str%%|%%filters%% }}', array('%%str%%' => $asString ? '"'.$str.'"' : $str, '%%filters%%' => (is_array($filters) ? implode('|', $filters) : $filters) ));
+        return strtr(
+            '{{ %%str%%|%%filters%% }}',
+            array(
+                '%%str%%' => $asString ? '"'.$str.'"' : $str,
+                '%%filters%%' => (is_array($filters) ? implode('|', $filters) : $filters)
+            )
+        );
     }
 
     public function getEchoBlock($name)
@@ -466,7 +503,7 @@ class EchoExtension extends \Twig_Extension
     {
         return '{% endspaceless %}';
     }
-
+    
     /**
      * Converts an assoc array to a twig array expression (string) .
      * Only in case a value contains '{{' and '}}' the value won't be
@@ -488,9 +525,7 @@ class EchoExtension extends \Twig_Extension
     {
         $contents = array();
         foreach ($arr as $key => $value) {
-            if (!strstr($value, '{{')
-                || !strstr($value, '}}'))
-            {
+            if (!strstr($value, '{{') || !strstr($value, '}}')) {
                 $value = "'$value'";
             } else {
                 $value = trim(str_replace(array('{{', '}}'), '', $value));
@@ -502,16 +537,21 @@ class EchoExtension extends \Twig_Extension
         return '{ ' . implode(', ', $contents) . ' }';
     }
 
-    public function getEchoInclude($twig)
+    public function getEchoInclude($twig, array $params = array(), $paramsOnly = false)
     {
-        return '{% include "'.$twig.'" %}';
+        return sprintf(
+            '{%% include "%s" with %s %s%%}',
+            $twig,
+            $this->getEchoTwigAssoc($params),
+            $paramsOnly ? 'only ' : ''
+        );
     }
 
     public function getEchoRender($controller, array $params = array())
     {
         $params = $this->getEchoTwigAssoc($params);
 
-        return '{% render(controller("'.$controller.'", '.$params.')) %}';
+        return '{{ render(controller("'.$controller.'", '.$params.')) }}';
     }
 
     /**

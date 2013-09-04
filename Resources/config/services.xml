@@ -12,7 +12,6 @@
         <parameter key="admingenerator.naming.folder_id.class">Admingenerator\GeneratorBundle\Naming\FolderIdNaming</parameter>
         <parameter key="admingenerator.finder.class">Admingenerator\GeneratorBundle\CacheWarmer\GeneratorFinder</parameter>
         <parameter key="form.type_guesser.admingenerator.class">Admingenerator\GeneratorBundle\Validator\ValidatorTypeGuesser</parameter>
-        <parameter key="admingenerator.menu_builder.class">Admingenerator\GeneratorBundle\Menu\DefaultMenuBuilder</parameter>
         <parameter key="admingenerator.pagination.class">Admingenerator\GeneratorBundle\Pagerfanta\View\AdmingeneratorView</parameter>
         <parameter key="admingenerator.base_admin_template">AdmingeneratorOldThemeBundle::base_admin.html.twig</parameter>
         <parameter key="admingenerator.overwrite_if_exists">false</parameter>
@@ -77,40 +76,6 @@
             <tag name="admingenerator.validator.propel" alias="propel_model_class" />
         </service>
 
-        <!-- Form types -->
-        <service id="form.type.datepicker" class="Admingenerator\GeneratorBundle\Form\Type\DatepickerType">
-            <tag name="form.type" alias="datepicker" />
-        </service>
-
-        <service id="form.type.timepicker" class="Admingenerator\GeneratorBundle\Form\Type\TimepickerType">
-            <tag name="form.type" alias="timepicker" />
-        </service>
-
-        <service id="form.type.datetimepicker" class="Admingenerator\GeneratorBundle\Form\Type\DateTimepickerType">
-            <tag name="form.type" alias="datetimepicker" />
-        </service>
-
-        <service id="form.type.editor" class="Admingenerator\GeneratorBundle\Form\Type\EditorType">
-            <tag name="form.type" alias="editor" />
-        </service>
-
-        <service id="form.type.datepicker_range" class="Admingenerator\GeneratorBundle\Form\Type\DatepickerRangeType">
-            <tag name="form.type" alias="datepicker_range" />
-        </service>
-
-        <!-- Form type extensions -->
-        <service id="form.type_extension.autocomplete" class="Admingenerator\GeneratorBundle\Form\Extension\AutocompleteTypeExtension">
-            <tag name="form.type_extension" alias="form" />
-        </service>
-
-        <service id="form.type_extension.collection" class="Admingenerator\GeneratorBundle\Form\Extension\BootstrapCollectionTypeExtension">
-            <tag name="form.type_extension" alias="collection" />
-        </service>
-
-        <service id="form.type_extension.help_message" class="Admingenerator\GeneratorBundle\Form\Extension\HelpMessageTypeExtension">
-            <tag name="form.type_extension" alias="form" />
-        </service>
-
         <!-- Validators -->
         <service id="admingenerator.validator.model_class" class="%admingenerator.validator.model_class.class%" public="false">
             <tag name="admingenerator.validator" alias="model_class" />
@@ -129,42 +94,6 @@
             <tag name="kernel.cache_warmer" priority="100" />
             <argument type="service" id="service_container" />
             <argument type="service" id="admingenerator.finder" />
-        </service>
-
-        <service id="admingenerator.namer.folder_id" class="%admingenerator.naming.folder_id.class%">
-            <tag name="admingenerator.namer.folder_id"/>
-        </service>
-
-        <!-- Admin Menu -->
-        <service id="admingenerator.menu_builder" class="%admingenerator.menu_builder.class%">
-            <argument type="service" id="knp_menu.factory" />
-            <call method="setContainer">
-                    <argument type="service" id="service_container" />
-            </call>
-        </service>
-
-        <service id="admingenerator.menu.admin" class="%admingenerator.menu_builder.class%"
-             factory-service="admingenerator.menu_builder"
-             factory-method="createAdminMenu"
-             scope="request">
-            <tag name="knp_menu.menu" alias="admin" />
-            <argument type="service" id="request" />
-        </service>
-
-        <!-- Dashboard Menu -->
-        <service id="admingenerator.menu_builder.dashboard" class="%admingenerator.menu_builder.class%">
-            <argument type="service" id="knp_menu.factory" />
-            <call method="setContainer">
-                    <argument type="service" id="service_container" />
-            </call>
-        </service>
-
-        <service id="admingenerator.menu.dashboard" class="%admingenerator.menu_builder.class%"
-             factory-service="admingenerator.menu_builder.dashboard"
-             factory-method="createDashboardMenu"
-             scope="request">
-            <tag name="knp_menu.menu" alias="dashboard" />
-            <argument type="service" id="request" />
         </service>
     </services>
 </container>

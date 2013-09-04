@@ -38,7 +38,9 @@
             {%- if 'entity' == builder.getFieldGuesser().getDbType(model, filter) or 'collection' == builder.getFieldGuesser().getDbType(model, filter) -%}
 
         if (isset($filters['{{ filter }}'])) {
-                $filters['{{ filter }}'] = $this->getDoctrine()->getRepository($filters['{{ filter }}']['entityName'])->find($filters['{{ filter }}']['id']);
+                $filters['{{ filter }}'] = $this->getDoctrine()
+                ->getManagerForClass($filters['{{ filter }}']['entityName'])
+                ->getRepository($filters['{{ filter }}']['entityName'])->find($filters['{{ filter }}']['id']);
         }
 
             {%- endif %}
@@ -54,6 +56,7 @@
     {
         $query = $this->buildQuery();
 
+        $this->processQuery($query);
         $this->processSort($query);
         $this->processFilters($query);
         $this->processScopes($query);
@@ -63,8 +66,8 @@
 
     protected function buildQuery()
     {
-        return $this->getDoctrine()
-                    ->getManager({% if (entity_manager is defined) and (entity_manager != null) %}'{{ entity_manager }}'{% endif %})
+        return $this->getDoctrine()                    
+                    ->getManagerForClass('{{ model }}')
                     ->getRepository('{{ model }}')
                     ->createQueryBuilder('q');
     }
@@ -93,9 +96,12 @@
         {%- for filter in builder.filters.display -%}
             {%- if 'entity' == builder.getFieldGuesser().getDbType(model, filter) or 'collection' == builder.getFieldGuesser().getDbType(model, filter) -%}
 
-        if (isset($filters['{{ filter }}'])) {
-            $this->getDoctrine()->getManager({% if (entity_manager is defined) and (entity_manager != null) %}'{{ entity_manager }}'{% endif %})->getUnitOfWork()->registerManaged($filters['{{ filter }}'], array('id' => $filters['{{ filter }}']->getId()), array());
-        }
+              if (isset($filters['{{ filter }}'])) {
+                  $this->getDoctrine()
+                  ->getManagerForClass(get_class($filters['{{ filter }}']))
+                  ->getUnitOfWork()
+                  ->registerManaged($filters['{{ filter }}'], array('id' => $filters['{{ filter }}']->getId()), array());
+              }
 
             {%- endif %}
 

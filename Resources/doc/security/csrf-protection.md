@@ -1,9 +1,12 @@
 # CSRF Protection
 ---------------------------------------
 
+> **Note:** this documentation is out of date
+
+
 [go back to Table of contents][back-to-index]
 
-[back-to-index]: https://github.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/blob/master/Resources/doc/documentation.md#9-security
+[back-to-index]: https://github.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/blob/master/Resources/doc/documentation.md#8-security
 
 ### 1. Default protection
 

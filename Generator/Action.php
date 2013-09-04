@@ -34,12 +34,30 @@ class Action
 
     protected $csrf_protected = false;
 
-    protected $crendentials;
+    protected $credentials;
 
+    /**
+     * To be removed
+     *
+     * @deprecated use credentials instead and SecurityFunction annotation
+     * from JMS\DiExtraBundle
+     */
     protected $conditional_function;
 
+    /**
+     * To be removed
+     *
+     * @deprecated use credentials instead and SecurityFunction annotation
+     * from JMS\DiExtraBundle
+     */
     protected $conditional_parameters = array();
 
+    /**
+     * To be removed
+     *
+     * @deprecated use credentials instead and SecurityFunction annotation
+     * from JMS\DiExtraBundle
+     */
     protected $conditional_inverse = false;
 
     public function __construct($name, $type = 'custom')
@@ -57,6 +75,11 @@ class Action
     public function getName()
     {
         return $this->name;
+    }
+
+    public function getTwigName()
+    {
+        return str_replace('-', '_', $this->name);
     }
 
     public function getType()
@@ -143,14 +166,14 @@ class Action
         return $this->csrf_protected;
     }
 
-    public function setCredentials($crendentials)
+    public function setCredentials($credentials)
     {
-        $this->crendentials = $crendentials;
+        $this->credentials = $credentials;
     }
 
     public function getCredentials()
     {
-        return $this->crendentials;
+        return $this->credentials;
     }
 
     public function getParams()
@@ -163,6 +186,12 @@ class Action
         $this->params = $params;
     }
 
+    /**
+     * To be removed
+     *
+     * @deprecated use credentials instead and SecurityFunction annotation
+     * from JMS\DiExtraBundle
+     */
     public function setCondition(array $condition)
     {
         if (!isset($condition['function'])) {
@@ -180,16 +209,34 @@ class Action
         }
     }
 
+    /**
+     * To be removed
+     *
+     * @deprecated use credentials instead and SecurityFunction annotation
+     * from JMS\DiExtraBundle
+     */
     public function getConditionalFunction()
     {
         return $this->conditional_function;
     }
 
+    /**
+     * To be removed
+     *
+     * @deprecated use credentials instead and SecurityFunction annotation
+     * from JMS\DiExtraBundle
+     */
     public function getConditionalParameters()
     {
         return $this->conditional_parameters;
     }
 
+    /**
+     * To be removed
+     *
+     * @deprecated use credentials instead and SecurityFunction annotation
+     * from JMS\DiExtraBundle
+     */
     public function getConditionalInverse()
     {
         return $this->conditional_inverse;

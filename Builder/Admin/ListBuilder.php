@@ -13,8 +13,6 @@ use Admingenerator\GeneratorBundle\Generator\Action;
  */
 class ListBuilder extends BaseBuilder
 {
-    protected $object_actions;
-
     protected $batch_actions;
 
     protected $filter_columns;
@@ -65,102 +63,46 @@ class ListBuilder extends BaseBuilder
         foreach ($filters['display'] as $columnName) {
             $column = new Column($columnName);
 
-            $column->setDbType($this->getFieldOption(
-                $column,
-                'dbType',
-                $this->getFieldGuesser()->getDbType(
-                    $this->getVariable('model'),
-                    $columnName
+            $column->setDbType(
+                $this->getFieldOption(
+                    $column,
+                    'dbType',
+                    $this->getFieldGuesser()->getDbType(
+                        $this->getVariable('model'),
+                        $columnName
+                    )
                 )
-            ));
+            );
 
-            $column->setFormType($this->getFieldOption(
-                $column,
-                'filterType',
-                $this->getFieldGuesser()->getFilterType(
-                    $column->getDbType(),
-                    $columnName
+            $column->setFormType(
+                $this->getFieldOption(
+                    $column,
+                    'filterType',
+                    $this->getFieldGuesser()->getFilterType(
+                        $column->getDbType(),
+                        $columnName
+                    )
                 )
-            ));
+            );
+            
 
-            $column->setFormOptions($this->getFieldOption(
-                $column,
-                'filterOptions',
-                $this->getFieldGuesser()->getFilterOptions(
-                    $column->getFormType(),
-                    $column->getDbType(),
-                    $columnName
+            $column->setFormOptions(
+                $this->getFieldOption(
+                    $column,
+                    'filterOptions',
+                    $this->getFieldGuesser()->getFilterOptions(
+                        $column->getFormType(),
+                        $column->getDbType(),
+                        $columnName
+                    )
                 )
-            ));
+            );
 
-            //Set the user parameters
+            // Set the user parameters
             $this->setUserColumnConfiguration($column);
             $this->addFilterColumn($column);
         }
 
-    }
-
-    /**
-     * Return a list of action from list.object_actions
-     * @return array
-     */
-    public function getObjectActions()
-    {
-        if (0 === count($this->object_actions)) {
-            $this->findObjectActions();
-        }
-
-        return $this->object_actions;
-    }
-
-    protected function setUserObjectActionConfiguration(Action $action)
-    {
-        $builderOptions = $this->getVariable(
-            sprintf('object_actions[%s]', $action->getName()),
-            array(),
-            true
-        );
-
-        $globalOptions = $this->getGenerator()->getFromYaml(
-            'params.object_actions.'.$action->getName(),
-            array()
-        );
-
-        if (null !== $builderOptions) {
-            foreach ($builderOptions as $option => $value) {
-                $action->setProperty($option, $value);
-            }
-        } elseif (null !== $globalOptions) {
-            foreach ($globalOptions as $option => $value) {
-                $action->setProperty($option, $value);
-            }
-        }
-    }
-
-    protected function addObjectAction(Action $action)
-    {
-        $this->object_actions[$action->getName()] = $action;
-    }
-
-    protected function findObjectActions()
-    {
-        $objectActions = $this->getVariable('object_actions', array());
-
-        foreach ($objectActions as $actionName => $actionParams) {
-            $action = $this->findObjectAction($actionName);
-            if(!$action) {
-                $action = new Action($actionName);
-            }
-
-            if ($globalCredentials = $this->getGenerator()->getFromYaml('params.credentials')) {
-                // If generator is globally protected by credentials
-                // object actions are also protected
-                $action->setCredentials($globalCredentials);
-            }
-
-            $this->setUserObjectActionConfiguration($action);
-            $this->addObjectAction($action);
-        }
     }
 
     /**
@@ -185,7 +127,8 @@ class ListBuilder extends BaseBuilder
         );
 
         $globalOptions = $this->getGenerator()->getFromYaml(
-            'params.batch_actions.'.$action->getName(), array()
+            'params.batch_actions.'.$action->getName(),
+            array()
         );
 
         if (null !== $builderOptions) {
@@ -210,7 +153,8 @@ class ListBuilder extends BaseBuilder
 
         foreach ($batchActions as $actionName => $actionParams) {
             $action = $this->findBatchAction($actionName);
-            if(!$action) {
+            
+            if (!$action) {
                 $action = new Action($actionName);
             }
 
@@ -224,5 +168,4 @@ class ListBuilder extends BaseBuilder
             $this->addBatchAction($action);
         }
     }
-
 }

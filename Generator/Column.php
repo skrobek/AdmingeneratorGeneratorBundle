@@ -3,10 +3,10 @@
 namespace Admingenerator\GeneratorBundle\Generator;
 
 /**
- *
  * This class describe a column
- * @author cedric Lombardot
  *
+ * @author cedric Lombardot
+ * @author Piotr Gołębiewski <loostro@gmail.com>
  */
 use Doctrine\Common\Util\Inflector;
 
@@ -18,6 +18,8 @@ class Column
 
     protected $sortOn;
 
+    protected $sortType;
+
     protected $filterOn;
 
     protected $dbType;
@@ -28,11 +30,11 @@ class Column
 
     protected $getter;
 
-    protected $label;
+    protected $label = null;
 
     protected $help;
 
-    protected $crendentials;
+    protected $credentials;
 
     protected $localizedDateFormat;
 
@@ -45,6 +47,7 @@ class Column
     {
         $this->name     = $name;
         $this->sortable = true;
+        $this->sortType = 'default';
     }
 
     public function setProperty($option, $value)
@@ -70,7 +73,9 @@ class Column
 
     public function getLabel()
     {
-        return $this->label ? $this->label : $this->humanize($this->getName());
+        return false !== $this->label && empty($this->label)
+            ? $this->humanize($this->getName())
+            : $this->label;
     }
 
     public function setLabel($label)
@@ -163,14 +168,14 @@ class Column
         return $this->formOptions;
     }
 
-    public function setCredentials($crendentials)
+    public function setCredentials($credentials)
     {
-        $this->crendentials = $crendentials;
+        $this->credentials = $credentials;
     }
 
     public function getCredentials()
     {
-        return $this->crendentials;
+        return $this->credentials;
     }
 
     public function setLocalizedDateFormat($localizedDateFormat)
@@ -197,8 +202,9 @@ class Column
     {
         foreach ($complementary_options as $option => $value) {
             if (is_array($value)) {
-                foreach ($value as $k=>$v) {
-                    if (preg_match('/\.(.+)/i', $k, $matches)) { //enable to call php function to build your form options
+                foreach ($value as $k => $v) {
+                    if (preg_match('/\.(.+)/i', $k, $matches)) {
+                        // enable to call php function to build your form options
                         $value = call_user_func_array($matches[1], $v);
                     }
                 }
@@ -216,5 +222,15 @@ class Column
     public function getExtras()
     {
         return $this->extras;
+    }
+
+    public function setSortType($type)
+    {
+        $this->sortType = $type;
+    }
+
+    public function getSortType()
+    {
+        return $this->sortType;
     }
 }

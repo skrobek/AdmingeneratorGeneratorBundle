@@ -19,6 +19,8 @@ class BaseBuilder extends GenericBaseBuilder
 
     protected $actions;
 
+    protected $objectActions = array();
+
     protected $columnClass = 'Column';
 
     public function getBaseAdminTemplate()
@@ -49,34 +51,43 @@ class BaseBuilder extends GenericBaseBuilder
         foreach ($this->getDisplayAsColumns() as $columnName) {
             $column = new $this->columnClass($columnName);
 
-            $column->setDbType($this->getFieldOption(
-                $column, 
-                'dbType',
-                $this->getFieldGuesser()->getDbType(
-                    $this->getVariable('model'), $columnName
+            $column->setDbType(
+                $this->getFieldOption(
+                    $column,
+                    'dbType',
+                    $this->getFieldGuesser()->getDbType(
+                        $this->getVariable('model'),
+                        $columnName
+                    )
                 )
-            ));
+            );
+
+            $column->setSortType($this->getFieldGuesser()->getSortType($column->getDbType()));
 
             if ($this->getYamlKey() != 'list' && $this->getYamlKey() != 'nested_list') {
 
-                $column->setFormType($this->getFieldOption(
-                    $column, 
-                    'formType',
-                    $this->getFieldGuesser()->getFormType(
-                        $column->getDbType(), 
-                        $columnName
+                $column->setFormType(
+                    $this->getFieldOption(
+                        $column,
+                        'formType',
+                        $this->getFieldGuesser()->getFormType(
+                            $column->getDbType(),
+                            $columnName
+                        )
                     )
-                ));
+                );
 
-                $column->setFormOptions($this->getFieldOption(
-                    $column, 
-                    'formOptions',
-                    $this->getFieldGuesser()->getFormOptions(
-                        $column->getFormType(),
-                        $column->getDbType(),
-                        $columnName
+                $column->setFormOptions(
+                    $this->getFieldOption(
+                        $column,
+                        'formOptions',
+                        $this->getFieldGuesser()->getFormOptions(
+                            $column->getFormType(),
+                            $column->getDbType(),
+                            $columnName
+                        )
                     )
-                ));
+                );
             }
             //Set the user parameters
             $this->setUserColumnConfiguration($column);
@@ -99,7 +110,7 @@ class BaseBuilder extends GenericBaseBuilder
     {
         $options = $this->getVariable(
             sprintf('fields[%s]', $column->getName()),
-            array(), 
+            array(),
             true
         );
 
@@ -110,7 +121,7 @@ class BaseBuilder extends GenericBaseBuilder
     {
         $options = $this->getVariable(
             sprintf('fields[%s]', $column->getName()),
-            array(), 
+            array(),
             true
         );
 
@@ -147,7 +158,7 @@ class BaseBuilder extends GenericBaseBuilder
         }
 
         if (null == $display || 0 == sizeof($display)) {
-           return $this->getAllFields();
+            return $this->getAllFields();
         }
 
         if (isset($display[0])) {
@@ -201,7 +212,7 @@ class BaseBuilder extends GenericBaseBuilder
         }
 
         if (null == $display || 0 == sizeof($display)) {
-           $display = $this->getAllFields();
+            $display = $this->getAllFields();
         }
 
         if (isset($display[0])) {
@@ -245,14 +256,23 @@ class BaseBuilder extends GenericBaseBuilder
 
     protected function setUserActionConfiguration(Action $action)
     {
-        $options = $this->getVariable(
+        $builderOptions = $this->getVariable(
             sprintf('actions[%s]', $action->getName()),
-            array(), 
+            array(),
             true
         );
 
-        if (null !== $options) {
-            foreach ($options as $option => $value) {
+        $globalOptions = $this->getGenerator()->getFromYaml(
+            'params.actions.'.$action->getName(),
+            array()
+        );
+
+        if (null !== $builderOptions) {
+            foreach ($builderOptions as $option => $value) {
+                $action->setProperty($option, $value);
+            }
+        } elseif (null !== $globalOptions) {
+            foreach ($globalOptions as $option => $value) {
                 $action->setProperty($option, $value);
             }
         }
@@ -267,9 +287,15 @@ class BaseBuilder extends GenericBaseBuilder
     {
         foreach ($this->getVariable('actions', array()) as $actionName => $actionParams) {
             $action = $this->findGenericAction($actionName);
-            
+
             if (!$action) {
                 $action = new Action($actionName);
+            }
+
+            if ($globalCredentials = $this->getGenerator()->getFromYaml('params.credentials')) {
+                // If generator is globally protected by credentials
+                // actions are also protected
+                $action->setCredentials($globalCredentials);
             }
 
             $this->setUserActionConfiguration($action);
@@ -277,60 +303,107 @@ class BaseBuilder extends GenericBaseBuilder
         }
     }
 
+    /**
+     * Return a list of action from list.object_actions
+     * @return array
+     */
+    public function getObjectActions()
+    {
+        if (0 === count($this->objectActions)) {
+            $this->findObjectActions();
+        }
+
+        return $this->objectActions;
+    }
+
+    protected function setUserObjectActionConfiguration(Action $action)
+    {
+        $builderOptions = $this->getVariable(
+                sprintf('object_actions[%s]', $action->getName()),
+                array(), true
+        );
+
+        $globalOptions = $this->getGenerator()->getFromYaml(
+                'params.object_actions.'.$action->getName(), array()
+        );
+
+        if (null !== $builderOptions) {
+            foreach ($builderOptions as $option => $value) {
+                $action->setProperty($option, $value);
+            }
+        } elseif (null !== $globalOptions) {
+            foreach ($globalOptions as $option => $value) {
+                $action->setProperty($option, $value);
+            }
+        }
+    }
+
+    protected function addObjectAction(Action $action)
+    {
+        $this->objectActions[$action->getName()] = $action;
+    }
+
+    protected function findObjectActions()
+    {
+        $objectActions = $this->getVariable('object_actions', array());
+
+        foreach ($objectActions as $actionName => $actionParams) {
+            $action = $this->findObjectAction($actionName);
+            if(!$action) {
+                $action = new Action($actionName);
+            }
+
+            if ($globalCredentials = $this->getGenerator()->getFromYaml('params.credentials')) {
+                // If generator is globally protected by credentials
+                // object actions are also protected
+                $action->setCredentials($globalCredentials);
+            }
+
+            $this->setUserObjectActionConfiguration($action);
+            $this->addObjectAction($action);
+        }
+    }
+
     public function findGenericAction($actionName)
     {
-        if (preg_match('/\-/', $actionName)) {
-            $classNameParts = Container::camelize(explode("-", $actionName));
-            $class = 'Admingenerator\\GeneratorBundle\\Generator\\Action\\Generic\\'
-                      .implode('', $classNameParts).'Action';
-        } else {
-            $class = 'Admingenerator\\GeneratorBundle\\Generator\\Action\\Generic\\'
-                      .Container::camelize($actionName.'Action');
-        }
+        $class = 'Admingenerator\\GeneratorBundle\\Generator\\Action\\Generic\\'
+                .Container::camelize(str_replace('-', '_', $actionName) . 'Action');
 
         return (class_exists($class)) ? new $class($actionName, $this) : false;
     }
 
     public function findObjectAction($actionName)
     {
-        if (preg_match('/\-/', $actionName)) {
-            $classNameParts = Container::camelize(explode("-", $actionName));
-            $class = 'Admingenerator\\GeneratorBundle\\Generator\\Action\\Object\\'
-                      .implode('', $classNameParts).'Action';
-        } else {
-            $class = 'Admingenerator\\GeneratorBundle\\Generator\\Action\\Object\\'
-                      .Container::camelize($actionName.'Action');
-        }
+        $class = 'Admingenerator\\GeneratorBundle\\Generator\\Action\\Object\\'
+                .Container::camelize(str_replace('-', '_', $actionName) . 'Action');
 
         return (class_exists($class)) ? new $class($actionName, $this) : false;
     }
 
     public function findBatchAction($actionName)
     {
-        if (preg_match('/\-/', $actionName)) {
-            $classNameParts = Container::camelize(explode("-", $actionName));
-            $class = 'Admingenerator\\GeneratorBundle\\Generator\\Action\\Batch\\'
-                      .implode('', $classNameParts).'Action';
-        } else {
-            $class = 'Admingenerator\\GeneratorBundle\\Generator\\Action\\Batch\\'
-                      .Container::camelize($actionName.'Action');
-        }
+        $class = 'Admingenerator\\GeneratorBundle\\Generator\\Action\\Batch\\'
+                .Container::camelize(str_replace('-', '_', $actionName) . 'Action');
 
         return (class_exists($class)) ? new $class($actionName, $this) : false;
     }
 
     /**
      * Parse a little template with twig for yaml options
+     * From @sescandell: is this function still used????
      */
     public function parseStringWithTwig($template, $options = array())
     {
         $loader = new \Twig_Loader_String();
-        $twig = new \Twig_Environment($loader, array(
-            'autoescape' => false,
-            'strict_variables' => true,
-            'debug' => true,
-            'cache' => $this->getGenerator()->getTempDir(),
-        ));
+        $twig = new \Twig_Environment(
+            $loader,
+            array(
+                'autoescape' => false,
+                'strict_variables' => true,
+                'debug' => true,
+                'cache' => $this->getGenerator()->getTempDir(),
+            )
+        );
         $this->addTwigExtensions($twig, $loader);
         $this->addTwigFilters($twig);
 
@@ -360,13 +433,18 @@ class BaseBuilder extends GenericBaseBuilder
     {
         return str_replace('\\', '', $this->getVariable('namespace_prefix'));
     }
-    
+
     public function getBaseActionsRoute()
     {
-        return str_replace('\\', '_', $this->getVariable('namespace_prefix').'_'.$this->getVariable('bundle_name').'_'
-               .$this->getBaseGeneratorName());
+        return str_replace(
+            '\\',
+            '_',
+            $this->getVariable('namespace_prefix')
+            .'_'.$this->getVariable('bundle_name')
+            .'_'.$this->getBaseGeneratorName()
+        );
     }
-    
+
     public function getObjectActionsRoute()
     {
         return $this->getBaseActionsRoute().'_object';
@@ -474,5 +552,4 @@ class BaseBuilder extends GenericBaseBuilder
 
         return $javascripts;
     }
-
 }
