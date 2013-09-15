@@ -10,6 +10,6 @@ class ShowBuilderTemplate extends ShowBuilder
 {
     public function getOutputName()
     {
-        return 'Resources/views/'.$this->getBaseGeneratorName().'Show/index.html.twig';
+        return 'Resources/views/'.$this->getBaseGeneratorName().'/Show/index.html.twig';
     }
 }
