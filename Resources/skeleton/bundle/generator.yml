@@ -6,10 +6,12 @@ params:
     bundle_name: {{ bundle_name }}
     pk_requirement: ~
     fields: ~
+
     object_actions:
-        delete: ~
-  batch_actions:
-        delete: ~
+      delete: ~
+    batch_actions:
+      delete: ~
+
 builders:
   list:
     params:
@@ -23,24 +25,27 @@ builders:
   filters:
     params:
       display: ~
+
   new:
     params:
       title: Nowy Obiekt
       display: ~
-        actions:
-          save: ~
-          save-and-add: ~
-          save-and-list: ~
-          list: ~
+      actions:
+        save: ~
+        save-and-add: ~
+        save-and-list: ~
+        list: ~
+
   edit:
     params:
       title: Edycja obiektu "%object%"|{ %object%: {{ prefix }}.name }|
       display: ~
-        actions:
-          save: ~
-          save-and-add: ~
-          save-and-list: ~
-          list: ~
+      actions:
+        save: ~
+        save-and-add: ~
+        save-and-list: ~
+        list: ~
+
   show:
     params:
       title: Podgląd obiektu "%object%"|{ %object%: {{ prefix }}.name }|
@@ -48,6 +53,7 @@ builders:
       actions:
         list: ~
         new: ~
+
   actions:
     params:
       object_actions:

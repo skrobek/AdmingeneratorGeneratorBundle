@@ -62,6 +62,10 @@
             <argument type="service" id="file_locator" />
         </service>
 
+        <service id="admingenerator.namer.folder_id" class="%admingenerator.naming.folder_id.class%">
+            <tag name="admingenerator.namer.folder_id"/>
+        </service>
+
         <service id="pagerfanta.view.admingenerator" class="%admingenerator.pagination.class%">
             <tag name="pagerfanta.view" alias="admingenerator" />
             <argument type="service" id="translator" />
