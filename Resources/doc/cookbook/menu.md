@@ -36,7 +36,11 @@ To overwrite this, you need to [create][create-builder] a new menu builder class
 To make things easier Admingenerator ships a [base][extend-builder] class which 
 you can extend (see [default][default-builder] menu builder to an example).
 
+> **Note**: In case of extending the default builder, your own menu builder has to be defined as a service (see 
+[Creating Menus as Services][create-service-builder]).
+
 [create-builder]: https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/index.md#method-a-the-easy-way-yay
+[create-service-builder]: https://github.com/KnpLabs/KnpMenuBundle/blob/master/Resources/doc/menu_service.md
 [extend-builder]: https://github.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/blob/master/Menu/AdmingeneratorMenuBuilder.php
 [default-builder]: https://github.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/blob/master/Menu/DefaultMenuBuilder.php
 
@@ -48,11 +52,44 @@ When you have your builder class ready, simply overwrite the **menu** block to r
 {% block menu %}{{ knp_menu_render('AcmeDemoBundle:MyBuilder:myMenu') }}{% endblock %}
 ```
 
-> **Note**: `Resources\base_admin_navbar.html.twig` template is included by `base_admin` 
-template. To overwrite **menu** block simply create a new base template that extends 
-default admingenerator base template and in there customize your **menu** block.
-Remember to change the `admingenerator_generator.base_admin_template` parameter to use
-your custom base template!
+The menu block is defined in `Resources\base_admin_navbar.html.twig`, which is included by the **base_admin_template** (`Resources\base_admin.html.twig`). To overwrite the menu block, you should:
+
+* set your own **base_admin** template
+
+```yaml
+# config.yml
+admingenerator_generator:
+    ...
+    base_admin_template:    AcmeDemoBundle::base_admin.html.twig
+    ...
+```
+
+* include your own **base_admin_navbar** template in your **base_admin** template
+
+```html+django
+{# AcmeDemoBundle::base_admin.html.twig #}
+
+{% extends 'AdmingeneratorGeneratorBundle::base_admin_assetic_less.html.twig' %}
+{# OR #}
+{% extends 'AdmingeneratorGeneratorBundle::base_admin.html.twig' %}
+
+{% block navbar %}
+    {% include 'AcmeDemoBundle::base_admin_navbar.html.twig' %}
+{% endblock navbar %}
+```
+
+
+* overwrite the **menu** block in your **base_admin_navbar** template, which extends the original admingenerator **base_admin_navbar**
+
+```html+django
+{# AcmeDemoBundle::base_admin_navbar.html.twig #}
+
+{% extends 'AdmingeneratorGeneratorBundle::base_admin_navbar.html.twig' %}
+
+{% block menu %}{{ knp_menu_render('AcmeDemoBundle:MyBuilder:myMenu') }}{% endblock %}
+```
+
+> **Note**: your **base_admin** and **base_admin_navbar** template must extend the original admingenerator templates.
 
 ### 3. Example
 
