@@ -280,10 +280,21 @@
         {% if not compound %}
             {{ form_errors(form) }}
         {% endif %}
+        {{ block('form_help') }}
         </div>
     </div>
 {% endspaceless %}
 {% endblock form_row %}
+
+{% block form_help %}
+{% spaceless %}
+    {% if help %}
+        <span class="help-block">
+            <p class="muted">{{ help|trans({}, translation_domain) }}</p>
+        </span>
+    {% endif %}
+{% endspaceless %}
+{% endblock form_help %}
 
 {% block form_label %}
 {% spaceless %}
