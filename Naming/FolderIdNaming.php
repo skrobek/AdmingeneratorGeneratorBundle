@@ -20,6 +20,6 @@ class FolderIdNaming implements DirectoryNamerInterface
      * @return string The directory name.
      */
     public function directoryName($obj, $field, $uploadDir) {
-        return $uploadDir.'/'.$obj->getServicePoint()->getId();
+        return $uploadDir.'/'.$obj->getObject()->getId();
     }
 }
