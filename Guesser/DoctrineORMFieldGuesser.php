@@ -5,6 +5,7 @@ namespace Admingenerator\GeneratorBundle\Guesser;
 use Admingenerator\GeneratorBundle\Exception\NotImplementedException;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 class DoctrineORMFieldGuesser extends ContainerAware
@@ -144,7 +145,7 @@ class DoctrineORMFieldGuesser extends ContainerAware
             $mapping = $this->getMetadatas()->getAssociationMapping($columnName);
 
             return array(
-                'multiple'  => false,
+                'multiple'  => ($mapping['type'] === ClassMetadataInfo::MANY_TO_MANY || $mapping['type'] === ClassMetadataInfo::ONE_TO_MANY),
                 'em'        => 'default', // TODO: shouldn't this be configurable?
                 'class'     => $mapping['targetEntity'],
                 'required'  => $this->isRequired($columnName),
