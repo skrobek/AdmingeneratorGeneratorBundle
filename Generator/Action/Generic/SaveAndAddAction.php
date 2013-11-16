@@ -19,5 +19,7 @@ class SaveAndAddAction extends Action
         $this->setClass('btn-primary');
         $this->setIcon('icon-plus icon-white');
         $this->setLabel('action.generic.save-and-add');
+        $this->setIcon('icon-forward icon-white');
+        $this->setClass('btn-success');
     }
 }

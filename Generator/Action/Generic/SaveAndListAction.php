@@ -19,5 +19,7 @@ class SaveAndListAction extends Action
         $this->setClass('btn-info');
         $this->setIcon('icon-list-alt icon-white');
         $this->setLabel('action.generic.save-and-list');
+        $this->setIcon('icon-tasks icon-white');
+        $this->setClass('btn-info');
     }
 }

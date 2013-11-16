@@ -20,6 +20,7 @@ class {{ builder.YamlKey|ucfirst }}Type extends AbstractType
 
         $formOptions = $this->getFormOption('{{ column.name }}', {{ column.formOptions|merge({
             'label': column.label,
+            'help': column.help|default(''),
             'translation_domain': i18n_catalog|default('Admin')
         })|as_php|convert_as_form(column.formType) }});
         $builder->add('{{ column.name }}', {{ column.formType|as_php|convert_as_form(column.formType) }}, $formOptions);

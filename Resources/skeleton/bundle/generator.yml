@@ -6,47 +6,57 @@ params:
     bundle_name: {{ bundle_name }}
     pk_requirement: ~
     fields: ~
+
     object_actions:
-        delete: ~
+      delete: ~
     batch_actions:
-        delete: ~
+      delete: ~
+
 builders:
-    list:
-        params:
-            title: List for {{ bundle_name }}
-            display: ~
-            actions:
-                new: ~
-            object_actions:
-                edit: ~
-                delete: ~
-    filters:
-        params:
-            display: ~
-    new:
-        params:
-            title: New object for {{ bundle_name }}
-            display: ~
-            actions:
-                save: ~
-                list: ~
-    edit:
-        params:
-            title: "You're editing the object \"%object%\"|{ %object%: {{ model_name }}.title }|"
-            display: ~
-            actions:
-                save: ~
-                list: ~
-    show:
-        params:
-            title: "You're viewing the object \"%object%\"|{ %object%: {{ model_name }}.title }|"
-            display: ~
-            actions:
-                list: ~
-                new: ~
-    actions:
-        params:
-            object_actions:
-                delete: ~
-            batch_actions:
-                delete: ~
+  list:
+    params:
+      title: Lista
+      display: ~
+      actions:
+        new: ~
+      object_actions:
+        edit: ~
+        delete: ~
+  filters:
+    params:
+      display: ~
+
+  new:
+    params:
+      title: Nowy Obiekt
+      display: ~
+      actions:
+        save: ~
+        save-and-add: ~
+        save-and-list: ~
+        list: ~
+
+  edit:
+    params:
+      title: Edycja obiektu "%object%"|{ %object%: {{ prefix }}.name }|
+      display: ~
+      actions:
+        save: ~
+        save-and-add: ~
+        save-and-list: ~
+        list: ~
+
+  show:
+    params:
+      title: Podgląd obiektu "%object%"|{ %object%: {{ prefix }}.name }|
+      display: ~
+      actions:
+        list: ~
+        new: ~
+
+  actions:
+    params:
+      object_actions:
+        delete: ~
+      batch_actions:
+        delete: ~

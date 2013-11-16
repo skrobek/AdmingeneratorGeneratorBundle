@@ -10,5 +10,5 @@ env:
     - SYMFONY_VERSION=origin/2.3
 
 before_script:
-    - composer self-update 
+    - composer self-update
     - composer install --dev

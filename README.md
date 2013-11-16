@@ -1,5 +1,5 @@
 # Symfony2 Admin Generator
----------------------------------------
+
 
 [![KnpBundles Badge](http://knpbundles.com/symfony2admingenerator/AdmingeneratorGeneratorBundle/badge-short)](http://knpbundles.com/symfony2admingenerator/AdmingeneratorGeneratorBundle)
 ![project status](http://stillmaintained.com/cedriclombardot/AdmingeneratorGeneratorBundle.png) 

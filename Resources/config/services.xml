@@ -9,6 +9,7 @@
         <parameter key="routing.loader.admingenerator.class">Admingenerator\GeneratorBundle\Routing\RoutingLoader</parameter>
         <parameter key="routing.loader.admingenerator_nested.class">Admingenerator\GeneratorBundle\Routing\NestedRoutingLoader</parameter>
         <parameter key="admingenerator.cache_warmer.class">Admingenerator\GeneratorBundle\CacheWarmer\GeneratorCacheWarmer</parameter>
+        <parameter key="admingenerator.naming.folder_id.class">Admingenerator\GeneratorBundle\Naming\FolderIdNaming</parameter>
         <parameter key="admingenerator.finder.class">Admingenerator\GeneratorBundle\CacheWarmer\GeneratorFinder</parameter>
         <parameter key="form.type_guesser.admingenerator.class">Admingenerator\GeneratorBundle\Validator\ValidatorTypeGuesser</parameter>
         <parameter key="admingenerator.pagination.class">Admingenerator\GeneratorBundle\Pagerfanta\View\AdmingeneratorView</parameter>
@@ -59,6 +60,10 @@
         <service id="routing.loader.admingenerator_nested" class="%routing.loader.admingenerator_nested.class%">
             <tag name="routing.loader" />
             <argument type="service" id="file_locator" />
+        </service>
+
+        <service id="admingenerator.namer.folder_id" class="%admingenerator.naming.folder_id.class%">
+            <tag name="admingenerator.namer.folder_id"/>
         </service>
 
         <service id="pagerfanta.view.admingenerator" class="%admingenerator.pagination.class%">
