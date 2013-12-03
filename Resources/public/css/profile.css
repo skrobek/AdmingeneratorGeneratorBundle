@@ -2,15 +2,15 @@
 -------------------------------------------------- */
 
 /* Invert profile colors */
-.profile {
-    padding-left: 15px; 
-    padding-right: 15px; 
+.navbar .profile {
+    padding-left: 15px;
+    padding-right: 15px;
     background-color: #f5f5f5;
 }
 
 /* Fixes for small screens */
 @media (max-width: 979px) {
-  .profile li {
+  .navbar .profile li {
       display: inline-block;
   }
   .nav-collapse.in .profile li.btn-group {
@@ -21,7 +21,7 @@
   }
 }
 
-.profile .navbar-text {
+.navbar .profile .navbar-text {
     color: #0B6CBC;
     text-shadow: 0 1px 0 #FFFFFF;
     margin-right: 10px;
