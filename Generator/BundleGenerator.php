@@ -91,7 +91,7 @@ class BundleGenerator extends BaseBundleGenerator
         );
 
         if (!file_exists($dir.'/'.$bundle.'.php')) {
-            $this->renderGeneratedFile('Bundle.php', $dir.'/'.$bundle.'.php', $parameters);
+            $this->renderGeneratedFile('Bundle.php.twig', $dir.'/'.$bundle.'.php', $parameters);
         }
 
         foreach ($this->actions as $action => $actionProperties) {
@@ -100,7 +100,7 @@ class BundleGenerator extends BaseBundleGenerator
             $controllerFile = $dir.'/Controller/'.($this->prefix ? ucfirst($this->prefix).'/' : '').$action.'Controller.php';
             $this->copyPreviousFile($controllerFile);
             $this->renderGeneratedFile(
-                'DefaultController.php',
+                'DefaultController.php.twig',
                 $controllerFile,
                 $parameters
             );
@@ -122,7 +122,7 @@ class BundleGenerator extends BaseBundleGenerator
             $formFile = $dir.'/Form/Type/'.($this->prefix ? ucfirst($this->prefix).'/' : '').$form.'Type.php';
             $this->copyPreviousFile($formFile);
             $this->renderGeneratedFile(
-                'DefaultType.php',
+                'DefaultType.php.twig',
                 $formFile,
                 $parameters
             );
@@ -131,7 +131,7 @@ class BundleGenerator extends BaseBundleGenerator
         $generatorFile = $dir.'/Resources/config/admin/'.($this->prefix ? ucfirst($this->prefix).'-' : '').'generator.yml';
         $this->copyPreviousFile($generatorFile);
         $this->renderGeneratedFile(
-            'generator.yml',
+            'generator.yml.twig',
             $generatorFile,
             $parameters
         );
