@@ -59,7 +59,7 @@
       {% include 'AdmingeneratorGeneratorBundle::base_admin_navbar.html.twig' %}
     {% endblock navbar %}
 
-    <div class="container-fluid">
+    <div class="{% block row_fluid %}container-fluid{% endblock %}">
       {% block flashes %}
         <div id="flashes" class="row-fluid">
           {% for type, flashMessages in app.session.flashbag.all() %}
