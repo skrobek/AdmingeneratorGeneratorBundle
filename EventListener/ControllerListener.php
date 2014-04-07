@@ -58,7 +58,6 @@ class ControllerListener
     protected function getGenerator($generatorYaml)
     {
         $yaml = Yaml::parse($generatorYaml);
-
         return $this->container->get($yaml['generator']);
     }
 
@@ -71,7 +70,7 @@ class ControllerListener
             if (3 != count(explode('\\', $matches[2]))) {
                 return '';
             }
-            
+
             list($firstSlash, $generatorName) = explode('\\', $matches[2], 3);
 
             return $generatorName;
