@@ -27,11 +27,16 @@
 
             {{ echo_include(builder.namespacePrefixForTemplate ~ bundle_name ~ ':' ~ builder.BaseGeneratorName ~ ':List\results.html.twig') }}
         </div>
-        
+
         {{ echo_block("filters") }}
         {% if builder.filterColumns|length > 0 %}
+<<<<<<< HEAD
+            <div class="span3">
+                {{ echo_include(builder.namespacePrefixForTemplate ~ bundle_name ~ ':' ~ builder.BaseGeneratorName ~ ':List\filters.html.twig') }}
+=======
             <div class="col-md-3">
                 {{ echo_include(builder.namespacePrefixForTemplate ~ bundle_name ~ ':' ~ builder.BaseGeneratorName ~ 'List:filters.html.twig') }}
+>>>>>>> 8d19b9ec68cf814262f8c110036892785e1ab57f
             </div>
         {% endif %}
         {{ echo_endblock() }}

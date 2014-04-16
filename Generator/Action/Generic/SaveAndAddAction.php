@@ -17,7 +17,7 @@ class SaveAndAddAction extends Action
 
         $this->setSubmit(true);
         $this->setClass('btn-primary');
-        $this->setIcon('icon-plus icon-white');
+        $this->setIcon('glyphicon-plus glyphicon-white');
         $this->setLabel('action.generic.save-and-add');
         $this->setIcon('icon-forward icon-white');
         $this->setClass('btn-success');
