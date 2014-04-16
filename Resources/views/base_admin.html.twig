@@ -60,7 +60,7 @@
       {% include 'AdmingeneratorGeneratorBundle::base_admin_navbar.html.twig' %}
     {% endblock navbar %}
 
-    <div class="{% block row_fluid %}container-fluid{% endblock %}">
+    <div class="container-fluid">
       {% block flashes %}
         <div id="flashes" class="row">
           {% for type, flashMessages in app.session.flashbag.all() %}
@@ -85,7 +85,7 @@
         <p>{% block footer_text %}&copy; Symfony2Admingenerator {{ ("now"|date('Y') > 2012) ? '2012 - ' ~ "now"|date('Y') : '2012' }}{% endblock %}</p>
       </footer>
       {% endblock %}
-    </div> <!--/.container -->
+    </div>
 
     {% block javascripts %}
 
